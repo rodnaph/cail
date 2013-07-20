@@ -10,9 +10,10 @@
     (.getBodyPart multipart i)))
 
 (defn content-type [^Part part]
-  (let [ct (.getContentType part)]
-    (.toLowerCase
-      (.substring ct 0 (.indexOf ct ";")))))
+  (if-let [ct (.getContentType part)]
+    (if (.contains ct ";")
+      (.toLowerCase (.substring ct 0 (.indexOf ct ";")))
+      ct)))
 
 (defn content-fn [^BodyPart part]
   (fn []
@@ -44,7 +45,8 @@
 ;; Public
 ;; ------
 
-(defn message->map [^Message msg]
+(defn ^{:doc "Parse a Message into a map"}
+  message->map [^Message msg]
   {:subject (.getSubject msg)
    :content-type (content-type msg)
    :encoding (.getEncoding msg)
@@ -56,4 +58,8 @@
    :date-sent (.getSentDate msg)
    :size (.getSize msg)
    :attachments (attachments (.getContent msg))})
+
+(defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
+  message->attachment [^Message msg index]
+  (throw "NOT IMPLEMENTED"))
 
