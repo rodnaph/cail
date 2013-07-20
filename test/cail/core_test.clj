@@ -1,6 +1,6 @@
 
 (ns cail.core-test
-  (:require [clojure.test :refer [deftest]]
+  (:require [clojure.test :refer [deftest is run-tests]]
             [cail.core :refer :all]
             [cail.fixtures :refer [make-message]]))
 
