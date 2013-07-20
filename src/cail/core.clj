@@ -50,7 +50,6 @@
 ;; Message Body
 ;; ------------
 
-
 (defmulti message-body class)
 
 (defmethod message-body String
