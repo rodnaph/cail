@@ -71,12 +71,13 @@
    :body (message-body (.getContent msg))
    :from (address->map (first (.getFrom msg)))
    :reply-to (address->map (first (.getReplyTo msg)))
-   :date-sent (.getSentDate msg)
+   :sent-on (.getSentDate msg)
    :content-type (content-type msg)
    :size (.getSize msg)
    :attachments (attachments (.getContent msg))})
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
-  (throw "NOT IMPLEMENTED"))
+  (if-let [attachment (nth (parts (.getContent msg) Part/ATTACHMENT) index)]
+    (.getContent attachment)))
 
