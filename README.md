@@ -35,8 +35,13 @@ you need to call back asking for the attachment by index.
 
 (println (count (:attachments msg))) ; => 2
 
-(spit "~/file.pdf" (message->attachment message 0))
+(def attachment (message->attachment message 0))
+
+(:content-type attachment) ; => "application/pdf"
+(spit "~/file.pdf" (:content-stream attachment))
 ```
+
+The _:content-stream_ is an input stream for reading the attachment.
 
 ## Cachability
 
