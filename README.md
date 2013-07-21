@@ -19,3 +19,44 @@ classes into Clojure data structures.
 ; etc...
 ```
 
+When given a message to parse it will still require the connection
+to its associated folder to fetch its data from.
+
+## Message Bodies
+
+@TODO
+
+## Attachments
+
+Due to the possible (and probable) size of attachment content this
+is not extracted by default.  All the metadata for attachments will
+be available after parsing a message, but to fetch the content
+you need to call back asking for the attachment by index.
+
+```clojure
+(def message (MimeMessage.))
+(def msg (message->map message))
+
+(println (count (:attachments msg))) ; => 2
+
+(spit "~/file.pdf" (message->attachment message 0))
+```
+
+## Cachability
+
+One goal of Cail is to allow messages to be cacheable. So after
+parsing they don't rely on any internal state (connections to
+mail stores) that the Java versions do.
+
+This means that after parsing and caching a message the only time
+you need to go back to the mail store is to fetch the content
+of attachments (which could be many MB's so are not cached).
+
+## Testing
+
+Tests use _clojure.test_.
+
+```
+lein test
+```
+
