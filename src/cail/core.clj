@@ -54,6 +54,12 @@
 ;; Message Body
 ;; ------------
 
+(defn textual? [multipart]
+  (let [ct (content-type multipart)]
+    (or (= "text/plain" ct)
+        (= "text/html" ct)
+        (= "multipart/alternative" ct))))
+
 (defmulti message-body class)
 
 (defmethod message-body String
@@ -62,9 +68,10 @@
 
 (defmethod message-body Multipart
   [multipart]
-  (let [part (->> (multiparts multipart)
-                  (filter (complement attachment?))
-                  (last))]
+  (if-let [part (->> (multiparts multipart)
+                     (filter (complement attachment?))
+                     (filter textual?)
+                     (last))]
     (message-body (.getContent part))))
 
 ;; Public
