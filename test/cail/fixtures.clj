@@ -7,13 +7,12 @@
 (def session (Session/getInstance (Properties.)))
 
 (def inline-content (doto (MimeBodyPart.)
-                      (.setHeader "Content-Type" "text/html")
-                      (.setText "<b>HTML</b>")
+                      (.setText "<b>HTML</b>" "text/html")
                       (.setDisposition Part/INLINE)))
 
 (def attachment (doto (MimeBodyPart.)
-                  (.setHeader "Content-Type" "application/pdf")
                   (.setFileName "foo.txt")
+                  (.setContent "content of file" "application/pdf")
                   (.setDisposition Part/ATTACHMENT)))
 
 (def address (InternetAddress. "foo bar <foo@bar.com>"))

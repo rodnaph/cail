@@ -12,6 +12,12 @@
     (is (< 0 (count (:attachments msg))))
     (is (= "<b>HTML</b>" (:body msg)))))
 
+(let [msg (with-content-stream (message->map (make-message)))
+      attachment (first (:attachments msg))]
+  ; @todo
+  ;(is (not (nil? (:content-stream attachment))))
+  )
+
 (let [msg (message->map (make-message))
       attachment (first (:attachments msg))]
   (deftest attachments-have-properties-available

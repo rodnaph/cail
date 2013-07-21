@@ -28,21 +28,34 @@ will prefer HTML content types.
 Due to the possible (and probable) size of attachment content this
 is not extracted by default.  All the metadata for attachments will
 be available after parsing a message, but to fetch the content
-you need to call back asking for the attachment by index.
+you need to ask for it.
 
 ```clojure
 (def message (MimeMessage.))
-(def msg (message->map message))
+(def msg (with-content-stream
+           (message->map message)))
+(def attachments (:attachments msg))
 
-(println (count (:attachments msg))) ; => 2
+(println (count attachments )) ; => 2
 
-(def attachment (message->attachment message 0))
+(def attachment (first attachments))
 
 (:content-type attachment) ; => "application/pdf"
 (spit "~/file.pdf" (:content-stream attachment))
 ```
 
 The _:content-stream_ is an input stream for reading the attachment.
+
+### Individual Attachments
+
+You can also ask for individual attachments by index...
+
+```clojure
+(def attachment (message->attachment message 0))
+```
+
+By default this will *not* return the content stream for the 
+attachment, just wrap it in _with-content-stream_ to fetch that.
 
 ## Cachability
 

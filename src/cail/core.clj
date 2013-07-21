@@ -3,6 +3,8 @@
   (:import (javax.mail Message BodyPart Part Multipart)
            (javax.mail.internet InternetAddress)))
 
+(def ^{:dynamic true} *with-content-stream* false)
+
 (defn address->map [^InternetAddress address]
   {:name (.getPersonal address)
    :email (.getAddress address)})
@@ -28,7 +30,9 @@
 (defn part->attachment [^BodyPart part]
   {:content-type (content-type part)
    :file-name (.getFileName part)
-   :size (.getSize part)})
+   :size (.getSize part)
+   :content-stream (if *with-content-stream*
+                     (.getContent part))})
 
 (defn attachment-parts [^Multipart multipart]
   (->> (multiparts multipart)
@@ -66,6 +70,10 @@
 ;; Public
 ;; ------
 
+(defmacro with-content-stream [& body]
+  `(binding [*with-content-stream* true]
+     (do ~@body)))
+
 (defn ^{:doc "Parse a Message into a map"}
   message->map [^Message msg]
   {:id (.getMessageNumber msg)
@@ -81,7 +89,5 @@
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
   (if-let [part (nth (attachment-parts (.getContent msg)) index)]
-    (merge
-      (part->attachment part)
-      {:content-stream (.getContent part)})))
+    (part->attachment part)))
 
