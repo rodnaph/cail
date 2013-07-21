@@ -60,8 +60,8 @@
   [multipart]
   (let [part (->> (multiparts multipart)
                   (filter (complement attachment?))
-                  (first))]
-    (.getContent part)))
+                  (last))]
+    (message-body (.getContent part))))
 
 ;; Public
 ;; ------

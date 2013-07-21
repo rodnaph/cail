@@ -20,7 +20,8 @@ classes into Clojure data structures.
 ```
 
 When given a message to parse it will still require the connection
-to its associated folder to fetch its data from.
+to its associated folder to fetch its data from.  The message body
+will prefer HTML content types.
 
 ## Attachments
 
