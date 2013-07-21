@@ -17,22 +17,22 @@
       (.toLowerCase (.substring ct 0 (.indexOf ct ";")))
       ct)))
 
-(defn parts [^Multipart multipart part-type]
-  (filter #(.equalsIgnoreCase part-type (.getDisposition %))
-          (multiparts multipart)))
-
 ;; Attachments
 ;; -----------
 
-(defn content-fn [^BodyPart part]
-  (fn []
-    (slurp (.getContent part))))
+(defn attachment? [multipart]
+  (.equalsIgnoreCase
+    Part/ATTACHMENT
+    (.getDisposition multipart)))
 
 (defn part->attachment [^BodyPart part]
   {:content-type (content-type part)
    :file-name (.getFileName part)
-   :size (.getSize part)
-   :content (content-fn part)})
+   :size (.getSize part)})
+
+(defn attachment-parts [^Multipart multipart]
+  (->> (multiparts multipart)
+       (filter attachment?)))
 
 (defmulti attachments class)
 
@@ -40,12 +40,12 @@
   [content]
   [{:content-type "text/plain"
     :size (count content)
-    :content (fn [] content)}])
+    :content content}])
 
 (defmethod attachments Multipart
   [multipart]
   (map part->attachment
-       (parts multipart Part/ATTACHMENT)))
+       (attachment-parts multipart)))
 
 ;; Message Body
 ;; ------------
@@ -58,16 +58,18 @@
 
 (defmethod message-body Multipart
   [multipart]
-  (if-let [part (first (parts multipart Part/INLINE))]
-    (.getContent part)
-    ""))
+  (let [part (->> (multiparts multipart)
+                  (filter (complement attachment?))
+                  (first))]
+    (.getContent part)))
 
 ;; Public
 ;; ------
 
 (defn ^{:doc "Parse a Message into a map"}
   message->map [^Message msg]
-  {:subject (.getSubject msg)
+  {:id (.getMessageNumber msg)
+   :subject (.getSubject msg)
    :body (message-body (.getContent msg))
    :from (address->map (first (.getFrom msg)))
    :reply-to (address->map (first (.getReplyTo msg)))
@@ -78,6 +80,8 @@
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
-  (if-let [attachment (nth (parts (.getContent msg) Part/ATTACHMENT) index)]
-    (.getContent attachment)))
+  (if-let [part (nth (attachment-parts (.getContent msg)) index)]
+    (merge
+      (part->attachment part)
+      {:content-stream (.getContent part)})))
 

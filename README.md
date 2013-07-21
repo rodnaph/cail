@@ -22,10 +22,6 @@ classes into Clojure data structures.
 When given a message to parse it will still require the connection
 to its associated folder to fetch its data from.
 
-## Message Bodies
-
-@TODO
-
 ## Attachments
 
 Due to the possible (and probable) size of attachment content this
