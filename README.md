@@ -9,12 +9,16 @@ classes into Clojure data structures.
 ```clojure
 (require [cail.core :refer [message->map]])
 
-(def original (.getJavaMailMessageFromSomewhere java))
+(def original 
+  (.getJavaMailMessageFromSomewhereIn javaLand))
 
-(def message (message->map original))
+(def message 
+  (message->map original))
 
 (:subject message) ; => "The Subject"
-(count (:attachments message)) ; => 3
+
+(count 
+  (:attachments message)) ; => 3
 
 ; etc...
 ```
@@ -22,6 +26,11 @@ classes into Clojure data structures.
 When given a message to parse it will still require the connection
 to its associated folder to fetch its data from.  The message body
 will prefer HTML content types.
+
+### Message IDs
+
+Be aware that the _:id_ attached to each message is dependent on its
+folder, and can change depending on if messages get deleted or moved.
 
 ## Attachments
 
@@ -31,17 +40,24 @@ be available after parsing a message, but to fetch the content
 you need to ask for it.
 
 ```clojure
-(def message (MimeMessage.))
-(def msg (with-content-stream
-           (message->map message)))
-(def attachments (:attachments msg))
+(def msg 
+  (with-content-stream
+    (message->map message)))
 
-(println (count attachments )) ; => 2
+(def attachments 
+   (:attachments msg))
 
-(def attachment (first attachments))
+(println 
+  (count attachments )) ; => 2
+
+(def attachment 
+  (first attachments))
 
 (:content-type attachment) ; => "application/pdf"
-(spit "~/file.pdf" (:content-stream attachment))
+
+(spit 
+  "~/file.pdf" 
+  (:content-stream attachment))
 ```
 
 The _:content-stream_ is an input stream for reading the attachment.
@@ -51,11 +67,18 @@ The _:content-stream_ is an input stream for reading the attachment.
 You can also ask for individual attachments by index...
 
 ```clojure
-(def attachment (message->attachment message 0))
+(def attachment 
+  (message->attachment message 0))
 ```
 
 By default this will *not* return the content stream for the 
 attachment, just wrap it in _with-content-stream_ to fetch that.
+
+```clojure
+(def attachment
+  (with-content-stream
+    (message->attachment message 0)))
+```
 
 ## Cachability
 
