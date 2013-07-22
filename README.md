@@ -1,5 +1,5 @@
 
-# cail ("sail")
+# cail ("sail") [![Build Status](https://api.travis-ci.org/rodnaph/cail.png)](http://travis-ci.org/rodnaph/cail) [![Dependencies Status](http://clj-deps.herokuapp.com/github/rodnaph/cail/status.png)](http://clj-deps.herokuapp.com/github/rodnaph/cail)
 
 Cail is a small library for parsing the insane _javax.mail_ library
 classes into Clojure data structures.
