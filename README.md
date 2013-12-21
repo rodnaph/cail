@@ -99,3 +99,6 @@ Tests use _clojure.test_.
 lein test
 ```
 
+## Installation
+
+Cail is available from [Clojars](https://clojars.org/rodnaph/cail)
