@@ -1,11 +1,12 @@
 
 (ns cail.fixtures
   (:import (java.util Properties)
-           (javax.mail Session Part)
+           (javax.mail Session Part Message$RecipientType)
            (javax.mail.internet MimeMultipart MimeMessage InternetAddress MimeBodyPart)))
 
 (def defaults {:from "foo bar <foo@bar.com>"
-               :subject "subject"})
+               :subject "subject"
+               :to ["bim@bom.com"]})
 
 (def session (Session/getInstance (Properties.)))
 
@@ -22,6 +23,9 @@
                  (.addBodyPart inline-content)
                  (.addBodyPart attachment)))
 
+(defn ->address [email]
+  (InternetAddress. email))
+
 ;; Public
 ;; ------
 
@@ -30,8 +34,12 @@
   ([params]
     (let [{:keys [from subject]} (merge defaults params)]
       (doto (MimeMessage. session)
+        (.setFrom (->address from))
+        (.addRecipient Message$RecipientType/TO
+                       (->address "a@b.com"))
+        (.addRecipient Message$RecipientType/TO
+                       (->address "b@c.com"))
         (.setSubject subject)
-        (.setFrom (InternetAddress. from))
         (.setContent multipart)
         (.saveChanges)))))
 

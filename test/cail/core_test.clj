@@ -28,5 +28,15 @@
   (is (= {:name nil :email "foo@bar"}
          (:from (message->map (make-message {:from "foo@bar"}))))))
 
+(let [msg (message->map (make-message))
+      rcpts (:recipients msg)]
+  (deftest parsing-recipients
+    ; all recipients available
+    (is (= 2 (count rcpts)))
+    (is (= "a@b.com" (:email (first rcpts))))
+    (is (= "b@c.com" (:email (second rcpts))))
+    ; to address is first recipient
+    (is (= (:to msg) (first rcpts)))))
+
 (run-tests)
 

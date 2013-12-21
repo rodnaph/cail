@@ -87,15 +87,18 @@
 
 (defn ^{:doc "Parse a Message into a map"}
   message->map [^Message msg]
-  {:id (.getMessageNumber msg)
-   :subject (.getSubject msg)
-   :body (message-body (.getContent msg))
-   :from (address->map (first (.getFrom msg)))
-   :reply-to (address->map (first (.getReplyTo msg)))
-   :sent-on (.getSentDate msg)
-   :content-type (content-type msg)
-   :size (.getSize msg)
-   :attachments (attachments (.getContent msg))})
+  (let [recipients (map address->map (.getAllRecipients msg))]
+    {:id (.getMessageNumber msg)
+     :subject (.getSubject msg)
+     :body (message-body (.getContent msg))
+     :from (address->map (first (.getFrom msg)))
+     :recipients recipients
+     :to (first recipients)
+     :reply-to (address->map (first (.getReplyTo msg)))
+     :sent-on (.getSentDate msg)
+     :content-type (content-type msg)
+     :size (.getSize msg)
+     :attachments (attachments (.getContent msg))}))
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
