@@ -1,13 +1,12 @@
 
 (ns cail.core
-  (:import (javax.mail Message BodyPart Part Multipart)
-           (javax.mail.internet InternetAddress)))
+  (:import (javax.mail Address BodyPart Message Multipart Part)))
 
 (def ^{:dynamic true} *with-content-stream* false)
 
 (def default-address {:name nil :email ""})
 
-(defn address->map [^InternetAddress address]
+(defn address->map [^Address address]
   (if address
     {:name (.getPersonal address)
      :email (.getAddress address)}
