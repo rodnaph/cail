@@ -5,9 +5,13 @@
 
 (def ^{:dynamic true} *with-content-stream* false)
 
+(def default-address {:name nil :email ""})
+
 (defn address->map [^InternetAddress address]
-  {:name (.getPersonal address)
-   :email (.getAddress address)})
+  (if address
+    {:name (.getPersonal address)
+     :email (.getAddress address)}
+    default-address))
 
 (defn multiparts [^Multipart multipart]
   (for [i (range 0 (.getCount multipart))]

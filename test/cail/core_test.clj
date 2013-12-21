@@ -24,3 +24,9 @@
     (is (= "application/pdf" (:content-type attachment)))
     (is (= "foo.txt" (:file-name attachment)))))
 
+(deftest parsing-different-email-formats
+  (is (= {:name nil :email "foo@bar"}
+         (:from (message->map (make-message {:from "foo@bar"}))))))
+
+(run-tests)
+
