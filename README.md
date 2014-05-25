@@ -81,6 +81,16 @@ attachment, just wrap it in _with-content-stream_ to fetch that.
     (message->attachment message 0)))
 ```
 
+## Selecting Fields
+
+The *message->map* function returns a bunch of fields by default. If you want
+to only return a subset of these (eg. for working with FetchProfiles) then you
+can specify these as the second argument.
+
+```
+(message->map msg [:id :subject :from])
+```
+
 ## Cachability
 
 One goal of Cail is to allow messages to be cacheable. So after

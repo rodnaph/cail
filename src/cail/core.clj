@@ -6,6 +6,8 @@
 
 (def default-address {:name nil :email ""})
 
+(def default-fields [:id :subject :body :from :recipients :to :reply-to :sent-on :content-type :size :attachments])
+
 (defn address->map [^Address address]
   (if address
     {:name (.getPersonal address)
@@ -77,6 +79,58 @@
                      (last))]
     (message-body (.getContent part))))
 
+;; Fields
+;; ------
+
+(defmulti field (fn [id _] id))
+
+(defmethod field :id
+  [_ msg]
+  (.getMessageNumber msg))
+
+(defmethod field :subject
+  [_ msg]
+  (.getSubject msg))
+
+(defmethod field :body
+  [_ msg]
+  (message-body (.getContent msg)))
+
+(defmethod field :from
+  [_ msg]
+  (address->map (first (.getFrom msg))))
+
+(defmethod field :to
+  [_ msg]
+  (address->map (first (.getAllRecipients msg))))
+
+(defmethod field :recipients
+  [_ msg]
+  (map address->map (.getAllRecipients msg)))
+
+(defmethod field :reply-to
+  [_ msg]
+  (address->map (first (.getReplyTo msg))))
+
+(defmethod field :sent-on
+  [_ msg]
+  (.getSentDate msg))
+
+(defmethod field :content-type
+  [_ msg]
+  (content-type msg))
+
+(defmethod field :size
+  [_ msg]
+  (.getSize msg))
+
+(defmethod field :attachments
+  [_ msg]
+  (attachments (.getContent msg)))
+
+(defn- ->field-map [msg fields]
+  (reduce #(merge %1 {%2 (field %2 msg)}) {} fields))
+
 ;; Public
 ;; ------
 
@@ -84,20 +138,10 @@
   `(binding [*with-content-stream* true]
      (do ~@body)))
 
-(defn ^{:doc "Parse a Message into a map"}
-  message->map [^Message msg]
-  (let [recipients (map address->map (.getAllRecipients msg))]
-    {:id (.getMessageNumber msg)
-     :subject (.getSubject msg)
-     :body (message-body (.getContent msg))
-     :from (address->map (first (.getFrom msg)))
-     :recipients recipients
-     :to (first recipients)
-     :reply-to (address->map (first (.getReplyTo msg)))
-     :sent-on (.getSentDate msg)
-     :content-type (content-type msg)
-     :size (.getSize msg)
-     :attachments (attachments (.getContent msg))}))
+(defn ^{:doc "Parse a Message into a map, optionally specifying which fields to return"}
+  message->map
+  ([^Message msg] (message->map msg default-fields))
+  ([^Message msg fields] (->field-map msg fields)))
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]

@@ -38,5 +38,10 @@
     ; to address is first recipient
     (is (= (:to msg) (first rcpts)))))
 
+(let [msg (message->map (make-message) [:id])]
+  (deftest restricting-fields
+    (is (not (nil? (:id msg))))
+    (is (nil? (:from msg)))))
+
 (run-tests)
 
