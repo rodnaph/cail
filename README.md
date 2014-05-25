@@ -87,7 +87,7 @@ The *message->map* function returns a bunch of fields by default. If you want
 to only return a subset of these (eg. for working with FetchProfiles) then you
 can specify these as the second argument.
 
-```
+```clojure
 (message->map msg [:id :subject :from])
 ```
 
