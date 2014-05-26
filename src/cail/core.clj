@@ -128,6 +128,13 @@
   [_ msg]
   (attachments (.getContent msg)))
 
+(defmethod field :attachment-count
+  [_ msg]
+  (let [content (.getContent msg)]
+    (if (instance? Multipart content)
+      (.getCount content)
+      -1)))
+
 (defn- ->field-map [msg fields]
   (reduce #(merge %1 {%2 (field %2 msg)}) {} fields))
 
