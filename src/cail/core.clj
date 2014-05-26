@@ -132,7 +132,7 @@
   [_ ^Message msg]
   (let [content (.getContent msg)]
     (if (instance? Multipart content)
-      (.getCount content)
+      (- (.getCount content) 1)
       -1)))
 
 ;; Public
