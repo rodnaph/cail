@@ -82,61 +82,58 @@
 ;; Fields
 ;; ------
 
-(defmulti field (fn [id _] id))
+(defmulti field (comp first list))
 
 (defmethod field :id
-  [_ msg]
+  [_ ^Message msg]
   (.getMessageNumber msg))
 
 (defmethod field :subject
-  [_ msg]
+  [_ ^Message msg]
   (.getSubject msg))
 
 (defmethod field :body
-  [_ msg]
+  [_ ^Message msg]
   (message-body (.getContent msg)))
 
 (defmethod field :from
-  [_ msg]
+  [_ ^Message msg]
   (address->map (first (.getFrom msg))))
 
 (defmethod field :to
-  [_ msg]
+  [_ ^Message msg]
   (address->map (first (.getAllRecipients msg))))
 
 (defmethod field :recipients
-  [_ msg]
+  [_ ^Message msg]
   (map address->map (.getAllRecipients msg)))
 
 (defmethod field :reply-to
-  [_ msg]
+  [_ ^Message msg]
   (address->map (first (.getReplyTo msg))))
 
 (defmethod field :sent-on
-  [_ msg]
+  [_ ^Message msg]
   (.getSentDate msg))
 
 (defmethod field :content-type
-  [_ msg]
+  [_ ^Message msg]
   (content-type msg))
 
 (defmethod field :size
-  [_ msg]
+  [_ ^Message msg]
   (.getSize msg))
 
 (defmethod field :attachments
-  [_ msg]
+  [_ ^Message msg]
   (attachments (.getContent msg)))
 
 (defmethod field :attachment-count
-  [_ msg]
+  [_ ^Message msg]
   (let [content (.getContent msg)]
     (if (instance? Multipart content)
       (.getCount content)
       -1)))
-
-(defn- ->field-map [msg fields]
-  (reduce #(merge %1 {%2 (field %2 msg)}) {} fields))
 
 ;; Public
 ;; ------
@@ -148,7 +145,7 @@
 (defn ^{:doc "Parse a Message into a map, optionally specifying which fields to return"}
   message->map
   ([^Message msg] (message->map msg default-fields))
-  ([^Message msg fields] (->field-map msg fields)))
+  ([^Message msg fields] (reduce #(merge %1 {%2 (field %2 msg)}) {} fields)))
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
