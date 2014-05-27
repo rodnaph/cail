@@ -1,6 +1,7 @@
 
 (ns cail.core
-  (:import (javax.mail Address BodyPart Message Multipart Part)))
+  (:import (javax.mail Address BodyPart Message Multipart Part)
+           (com.sun.mail.imap IMAPMessage)))
 
 (def ^{:dynamic true} *with-content-stream* false)
 
@@ -87,6 +88,10 @@
 (defmethod field :id
   [_ ^Message msg]
   (.getMessageNumber msg))
+
+(defmethod field :uid
+  [_ ^IMAPMessage msg]
+  (.getUID (.getFolder msg) msg))
 
 (defmethod field :subject
   [_ ^Message msg]
