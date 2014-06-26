@@ -1,6 +1,6 @@
 
 (ns cail.core
-  (:import (javax.mail Address BodyPart Message Multipart Part)
+  (:import (javax.mail Address BodyPart Message Message$RecipientType Multipart Part)
            (com.sun.mail.imap IMAPMessage)))
 
 (def ^{:dynamic true} *with-content-stream* false)
@@ -105,13 +105,21 @@
   [_ ^Message msg]
   (address->map (first (.getFrom msg))))
 
-(defmethod field :to
-  [_ ^Message msg]
-  (address->map (first (.getAllRecipients msg))))
-
 (defmethod field :recipients
   [_ ^Message msg]
   (map address->map (.getAllRecipients msg)))
+
+(defmethod field :to
+  [_ ^Message msg]
+  (map address->map (.getRecipients msg Message$RecipientType/TO)))
+
+(defmethod field :cc
+  [_ ^Message msg]
+  (map address->map (.getRecipients msg Message$RecipientType/CC)))
+
+(defmethod field :bcc
+  [_ ^Message msg]
+  (map address->map (.getRecipients msg Message$RecipientType/BCC)))
 
 (defmethod field :reply-to
   [_ ^Message msg]
