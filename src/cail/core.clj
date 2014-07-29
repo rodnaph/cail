@@ -80,6 +80,22 @@
                      (last))]
     (message-body (.getContent part))))
 
+;; Attachment
+;; ----------
+
+(defmulti message-attachment (comp class first list))
+
+(defmethod message-attachment String
+  [content _]
+  {:content-type "text/plain"
+   :size (count content)
+   :content-stream content})
+
+(defmethod message-attachment Multipart
+  [content index]
+  (if-let [part (nth (attachment-parts content) index)]
+    (part->attachment part)))
+
 ;; Fields
 ;; ------
 
@@ -162,6 +178,5 @@
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
-  (if-let [part (nth (attachment-parts (.getContent msg)) index)]
-    (part->attachment part)))
+  (message-attachment (.getContent msg) index))
 
