@@ -38,10 +38,7 @@
 
 (defmethod content-stream MimeMessage
   [content]
-  (-> (.getContent content)
-      (multiparts)
-      (first)
-      (.getContent)))
+  (.getRawInputStream content))
 
 ;; Attachments
 ;; -----------
