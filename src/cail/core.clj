@@ -25,6 +25,22 @@
       (.toLowerCase (.substring ct 0 (.indexOf ct ";")))
       ct)))
 
+;; Content Streams
+;; ---------------
+
+(defmulti content-stream class)
+
+(defmethod content-stream BASE64DecoderStream
+  [content]
+  content)
+
+(defmethod content-stream MimeMessage
+  [content]
+  (-> (.getContent content)
+      (multiparts)
+      (first)
+      (.getContent)))
+
 ;; Attachments
 ;; -----------
 
@@ -38,7 +54,7 @@
    :file-name (.getFileName part)
    :size (.getSize part)
    :content-stream (if *with-content-stream*
-                     (.getContent part))})
+                     (content-stream (.getContent part)))})
 
 (defn attachment-parts [^Multipart multipart]
   (->> (multiparts multipart)
