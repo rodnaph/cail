@@ -36,6 +36,10 @@
   [content]
   content)
 
+(defmethod content-stream String
+  [content]
+  content)
+
 (defmethod content-stream MimeMessage
   [content]
   (.getRawInputStream content))
