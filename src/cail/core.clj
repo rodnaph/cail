@@ -3,7 +3,7 @@
   (:import (javax.mail Address BodyPart Message Message$RecipientType Multipart Part)
            (javax.mail.internet MimeMessage)
            (com.sun.mail.imap IMAPMessage)
-           (com.sun.mail.util BASE64DecoderStream QPDecoderStream)))
+           (com.sun.mail.util BASE64DecoderStream)))
 
 (def ^{:dynamic true} *with-content-stream* false)
 
