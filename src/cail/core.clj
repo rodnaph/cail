@@ -2,8 +2,7 @@
 (ns cail.core
   (:import (javax.mail Address BodyPart Message Message$RecipientType Multipart Part)
            (javax.mail.internet MimeMessage)
-           (com.sun.mail.imap IMAPMessage)
-           (com.sun.mail.util BASE64DecoderStream)))
+           (com.sun.mail.imap IMAPMessage)))
 
 (def ^{:dynamic true} *with-content-stream* false)
 
@@ -31,10 +30,6 @@
 ;; ---------------
 
 (defmulti content-stream class)
-
-(defmethod content-stream BASE64DecoderStream
-  [content]
-  content)
 
 (defmethod content-stream MimeMessage
   [content]
