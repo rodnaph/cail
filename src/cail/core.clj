@@ -26,6 +26,11 @@
       (.toLowerCase (.substring ct 0 (.indexOf ct ";")))
       ct)))
 
+(defn is-disposition [part disposition]
+  (.equalsIgnoreCase
+    disposition
+    (.getDisposition part)))
+
 ;; Content Streams
 ;; ---------------
 
@@ -43,9 +48,7 @@
 ;; -----------
 
 (defn attachment? [multipart]
-  (.equalsIgnoreCase
-    Part/ATTACHMENT
-    (.getDisposition multipart)))
+  (is-disposition multipart Part/ATTACHMENT))
 
 (defn part->attachment [^BodyPart part]
   {:content-type (content-type part)
