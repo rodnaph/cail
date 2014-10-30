@@ -50,6 +50,9 @@
 (defn attachment? [multipart]
   (is-disposition multipart Part/ATTACHMENT))
 
+(defn inline? [multipart]
+  (is-disposition multipart Part/INLINE))
+
 (defn part->attachment [^BodyPart part]
   {:content-type (content-type part)
    :file-name (.getFileName part)
@@ -77,11 +80,12 @@
 ;; Message Body
 ;; ------------
 
-(defn textual? [multipart]
-  (let [ct (content-type multipart)]
-    (or (= "text/plain" ct)
-        (= "text/html" ct)
-        (= "multipart/alternative" ct))))
+(defn body? [multipart]
+  (and (not (attachment? multipart))
+       (not (inline? multipart))))
+
+(defn html? [multipart]
+  (= "text/html" (content-type multipart)))
 
 (defmulti message-body class)
 
@@ -91,11 +95,13 @@
 
 (defmethod message-body Multipart
   [multipart]
-  (if-let [part (->> (multiparts multipart)
-                     (filter (complement attachment?))
-                     (filter textual?)
-                     (last))]
-    (message-body (.getContent part))))
+  (let [parts (->> (multiparts multipart)
+                   (filter body?))]
+    (if-let [htmlPart (->> parts
+                       (filter html?)
+                       (first))]
+      (message-body (.getContent htmlPart))
+      (message-body (.getContent (first parts))))))
 
 ;; Attachment
 ;; ----------
