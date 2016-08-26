@@ -1,14 +1,14 @@
 
 (ns cail.core
-  (:import (javax.mail Address BodyPart Message Message$RecipientType Multipart Part)
-           (javax.mail.internet MimeMessage)
-           (com.sun.mail.imap IMAPMessage)))
+  (:import (javax.mail Address Message Message$RecipientType Part)
+           (javax.mail.internet MimeMessage MimeMultipart))
+  (:require [clojure.string :as string]))
 
 (def ^{:dynamic true} *with-content-stream* false)
 
 (def default-address {:name nil :email ""})
 
-(def default-fields [:id :subject :body :from :recipients :to :reply-to :sent-on :content-type :size :attachments])
+(def default-fields [:id :subject :body :from :to :cc :bcc :reply-to :sent-on :content-type :size :attachments])
 
 (defn address->map [^Address address]
   (if address
@@ -16,108 +16,80 @@
      :email (.getAddress address)}
     default-address))
 
-(defn multiparts [^Multipart multipart]
-  (for [i (range 0 (.getCount multipart))]
-    (.getBodyPart multipart i)))
-
-(defn content-type [^Part part]
-  (if-let [ct (.getContentType part)]
-    (if (.contains ct ";")
-      (.toLowerCase (.substring ct 0 (.indexOf ct ";")))
-      ct)))
-
 (defn is-disposition [part disposition]
   (.equalsIgnoreCase
     disposition
     (.getDisposition part)))
 
-;; Content Streams
-;; ---------------
-
-(defmulti content-stream class)
-
-(defmethod content-stream MimeMessage
-  [content]
-  (.getRawInputStream content))
-
-(defmethod content-stream :default
-  [content]
-  content)
-
 ;; Attachments
 ;; -----------
 
-(defn attachment? [multipart]
+(defn attachment?
+  [multipart]
   (is-disposition multipart Part/ATTACHMENT))
 
-(defn inline? [multipart]
+(defn inline?
+  [multipart]
   (is-disposition multipart Part/INLINE))
 
-(defn part->attachment [^BodyPart part]
-  {:content-type (content-type part)
-   :file-name (.getFileName part)
-   :size (.getSize part)
-   :content-stream (if *with-content-stream*
-                     (content-stream (.getContent part)))})
-
-(defn attachment-parts [^Multipart multipart]
-  (->> (multiparts multipart)
-       (filter attachment?)))
-
-(defmulti attachments class)
-
-(defmethod attachments String
-  [content]
-  [{:content-type "text/plain"
-    :size (count content)
-    :content content}])
-
-(defmethod attachments Multipart
+(defn any-attachment?
   [multipart]
-  (map part->attachment
-       (attachment-parts multipart)))
+  (or (attachment? multipart)
+      (inline? multipart)))
+
+(defn- multiparts*
+  [^MimeMultipart mp f]
+  (for [i (range 0 (.getCount mp))]
+    (let [p (.getBodyPart mp i)
+          c (.getContent p)]
+      (if (instance? MimeMultipart c)
+        (multiparts* c f)
+        (when (f p) p)))))
+
+(defn multiparts
+  [^MimeMessage msg f]
+  (filter
+    (complement nil?)
+    (flatten
+      (let [content (.getContent msg)]
+          (if (instance? MimeMultipart content)
+            (multiparts* content f)
+            content)))))
+
+(defn ->attachment
+  [part id]
+  {:content-id (.getContentID part)
+   :content-stream (when *with-content-stream*
+                     (.getInputStream part))
+   :content-type (.getContentType part)
+   :file-name (.getFileName part)
+   :id id
+   :size (.getSize part)
+   :type (if (inline? part) :inline :attachment)})
+
+(defn attachments
+  [^MimeMessage msg]
+  (let [xs (multiparts msg any-attachment?)]
+    (map ->attachment
+         xs
+         (range 1 (inc (count xs))))))
 
 ;; Message Body
 ;; ------------
 
-(defn body? [multipart]
-  (and (not (attachment? multipart))
-       (not (inline? multipart))))
+(defn prefer-html
+  [x y]
+  (if (string/starts-with?
+        (.getContentType x)
+        "text/html")
+    -1 1))
 
-(defn html? [multipart]
-  (= "text/html" (content-type multipart)))
-
-(defmulti message-body class)
-
-(defmethod message-body String
-  [content]
-  content)
-
-(defmethod message-body Multipart
-  [multipart]
-  (let [parts (->> (multiparts multipart)
-                   (filter body?))]
-    (if-let [htmlPart (->> parts
-                       (filter html?)
-                       (first))]
-      (message-body (.getContent htmlPart))
-      (message-body (.getContent (first parts))))))
-
-;; Attachment
-;; ----------
-
-(defmulti message-attachment (comp class first list))
-
-(defmethod message-attachment String
-  [content _]
-  {:content-type "text/plain"
-   :size (count content)
-   :content-stream content})
-
-(defmethod message-attachment Multipart
-  [content index]
-  (if-let [part (nth (attachment-parts content) index)]
-    (part->attachment part)))
+(defn body
+  [^MimeMessage msg]
+  (first
+    (sort
+      prefer-html
+      (multiparts msg (complement any-attachment?)))))
 
 ;; Fields
 ;; ------
@@ -129,7 +101,7 @@
   (.getMessageNumber msg))
 
 (defmethod field :uid
-  [_ ^IMAPMessage msg]
+  [_ ^Message msg]
   (.getUID (.getFolder msg) msg))
 
 (defmethod field :subject
@@ -138,7 +110,7 @@
 
 (defmethod field :body
   [_ ^Message msg]
-  (message-body (.getContent msg)))
+  (.getContent (body msg)))
 
 (defmethod field :from
   [_ ^Message msg]
@@ -170,7 +142,7 @@
 
 (defmethod field :content-type
   [_ ^Message msg]
-  (content-type msg))
+  (.getContentType (body msg)))
 
 (defmethod field :size
   [_ ^Message msg]
@@ -178,14 +150,11 @@
 
 (defmethod field :attachments
   [_ ^Message msg]
-  (attachments (.getContent msg)))
+  (attachments msg))
 
 (defmethod field :attachment-count
   [_ ^Message msg]
-  (let [content (.getContent msg)]
-    (if (instance? Multipart content)
-      (- (.getCount content) 1)
-      -1)))
+  (count (attachments msg)))
 
 ;; Public
 ;; ------
@@ -201,5 +170,5 @@
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment [^Message msg index]
-  (message-attachment (.getContent msg) index))
+  (nth (attachments msg) (dec index)))
 

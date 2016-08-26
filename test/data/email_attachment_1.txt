@@ -1,0 +1,62 @@
+Return-Path: <foo@bar.com>
+Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
+ by inbound-smtp.us-east-1.amazonaws.com with SMTP id n173g6501crghscoue5ee4hccu3entn5o0mbt001
+ for test@test.com;
+ Fri, 11 Dec 2015 21:00:21 +0000 (UTC)
+Received: by mail-wm0-f45.google.com with SMTP id c17so25806765wmd.1
+        for <test@test.com>; Fri, 11 Dec 2015 13:00:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=owsy-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=jYpjFL9+HCpgHA6/ndt2+UvVQrR+C1RTh1uMPEQh8VA=;
+        b=lwxaCIZY+HeHHJTBomSAp+KZ42NpupvsN642PjiTnHuTcX/NtUdIjnaFkM4BlAHPIT
+         NkuCI1MImrbbWj+W/A+VmqpnAtgsY09XznftwPFfjymMylEKXudg1XmVWNVRgTEbp2mG
+         MhEbOJXiexev8OvDIAZbhBYFlpjsHiJG44nXp7KszUp0R+YXovUkAYs0JLHxTg2Gsr2s
+         y1WfYOZj2c1jb6pyPq7NS+7jqbhceeR79P4uBwhx0YSOPgCAFqArlen8AvVXmuNg5xt7
+         R8+qB4sigNoXg9OYDKSHubhECZVcHTC5Wt0UzIh5yCTB268tQtg1Jm2cIJ1DhKC02MP7
+         iizw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:date:message-id:subject:from:to
+         :content-type;
+        bh=jYpjFL9+HCpgHA6/ndt2+UvVQrR+C1RTh1uMPEQh8VA=;
+        b=biD6j8xRHjqU+EQYkA9r9prkVCKvlCvKvJapzGG1+uV5+FNMPE7ix418e/tdI0r/5U
+         bbcQVL+KKFIr4aoy0BNtfGoRnDDzeboNf9RzaOVFIHOK/FmQLlRu3ZCuoYG6+N+YmxQ8
+         g0FIbsVsIISM55uc60GtXIv3Cs/Nc5BtAzvzeeVSyapFjG+hbj3phBkAQ7DJRrSP/rvt
+         N/QLNdh5v5qwRL67RvgjkKyVe9eepbrLQL4uXSQH0UevW/U6EpOY0qyZdfNeL5bq9Q9m
+         MHUsH9Ys6/Ow2SMeg1m+y0TBOKcac0pRYE/gAu51hthWG8ZTdDWT0+7OYdedvrG4jePJ
+         cJMg==
+X-Gm-Message-State: ALoCoQkRQYNdu23IYqpPl6S86fwRxj9CyyzKE1PqhgWmoeL9PPVlXUKOCXy7RdBGHfvsNH+xw5/DM99n9Y01hfKI1uABg91r2w==
+MIME-Version: 1.0
+X-Received: by 10.28.140.136 with SMTP id o130mr8530244wmd.78.1449867619497;
+ Fri, 11 Dec 2015 13:00:19 -0800 (PST)
+Received: by 10.194.108.103 with HTTP; Fri, 11 Dec 2015 13:00:19 -0800 (PST)
+Date: Fri, 11 Dec 2015 21:00:19 +0000
+Message-ID: <CAACinZQJH2uBrrMn5TERvZCkxpV4SR6E_0gHUdAjeFnbFo+zrw@mail.gmail.com>
+Subject: With Attachment
+From: Rhodri Pugh <foo@bar.com>
+To: test@test.com
+Content-Type: multipart/mixed; boundary=001a1145bc907eda990526a59c80
+
+--001a1145bc907eda990526a59c80
+Content-Type: multipart/alternative; boundary=001a1145bc907eda940526a59c7e
+
+--001a1145bc907eda940526a59c7e
+Content-Type: text/plain; charset=UTF-8
+
+Attached
+
+--001a1145bc907eda940526a59c7e
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">Attached</div>
+
+--001a1145bc907eda940526a59c7e--
+--001a1145bc907eda990526a59c80
+Content-Type: text/plain; charset=US-ASCII; name="attachment_ct.txt"
+Content-Disposition: attachment; filename="attachment_cd.txt"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_ii25q63v0
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+--001a1145bc907eda990526a59c80--

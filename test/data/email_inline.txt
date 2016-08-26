@@ -1,0 +1,67 @@
+Return-Path: <foo@bar.com>
+Received: from mail-wm0-f48.google.com (mail-wm0-f48.google.com [74.125.82.48])
+ by inbound-smtp.us-east-1.amazonaws.com with SMTP id 0cqe1l92b0ohllra1ll1v966npfj4sq4ehqedm01
+ for owsy@bindhqmail.com;
+ Wed, 23 Dec 2015 13:16:48 +0000 (UTC)
+Received: by mail-wm0-f48.google.com with SMTP id p187so146151832wmp.1
+        for <test@test.com>; Wed, 23 Dec 2015 05:16:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=owsy-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=pTLM4w2XtD3Ok1qOMSYeQIimWuyfKEP4BO1vk9dQOj4=;
+        b=pxErgpsNgxxCcetHNXNXPD8OPrkCk1HosaH4ET4qAQTv4Oe6PPfr6vrSJWtmg3QRPh
+         6m2Jl4GQlmQUWFBc459vL6V7Kq6dslQXn9GpDnW8cr2x+PZGciYJdLi1hSMXUpSa3/TN
+         EDAqVzMTGKVNnx5xYC6sx3XMkVa2P0zvoFc15Jj/0KWvxyHWX2E5spgezOI3OrycvS1L
+         D8Hq8gF1wTxRFaPJf9eX0L+Wv7ii8Ynn+jXep8qsWIZ4IR2rhYmN5Wgw1fHogkOUFOLz
+         FNprxsSABGlelkqrVLUdPcbv6MAk93rTdOJkUqjn8Q3c1tk0NwkzQ7DuTPHKr8jgpeG5
+         Ujkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:date:message-id:subject:from:to
+         :content-type;
+        bh=pTLM4w2XtD3Ok1qOMSYeQIimWuyfKEP4BO1vk9dQOj4=;
+        b=DJg2drPk924r8uBbWUDYClLDRaf9UO12KFMXrFNPfod53cwojN1FYvwdT3n6jQqZV6
+         EFlis/DTREUaPj9ia1tIVzScX/CGHhRvd0SKkzufXgOkep1/Gq3r4eDiK8I8Y8LKHgNA
+         rKALTFur2dyhzlKq1Q6C8WIaRc1lrNvcxnL1YyevHj38Fu9Dy4oCQzfjFwW4aMYOr6Z5
+         v1uwWp4jiMRHsTQMecYjT0BfS3lBeY5jIUqCxIoMasAn1c+kzKZdXtxZGcYyjRrhl1Ve
+         8kHVQwa0lEufUqYK7g0yBsZokBvKrSb/ZbM/lUWA+5/ZQZyHRkLJ3W39ToIbllaY+av5
+         6g4A==
+X-Gm-Message-State: ALoCoQknSVb76monnXzTYYE+qiYEnGIfcSfBBah0v68ZsYl18zhjypJ65S0m/bjHIDLbmD86E4tT0URlIbUv+/dpQ4PBjJR4yg==
+MIME-Version: 1.0
+X-Received: by 10.28.97.135 with SMTP id v129mr20023898wmb.78.1450876607230;
+ Wed, 23 Dec 2015 05:16:47 -0800 (PST)
+Received: by 10.194.170.34 with HTTP; Wed, 23 Dec 2015 05:16:46 -0800 (PST)
+Date: Wed, 23 Dec 2015 13:16:46 +0000
+Message-ID: <CAACinZTsCdfrEaS6JNzHyQk5YaDBkMOto8FBdW54iuOX_4ew5Q@mail.gmail.com>
+Subject: With Inline: asdasdasd
+From: Foo Bar <foo@bar.com>
+To: test@test.com
+Content-Type: multipart/related; boundary=001a1148fd70c9dc7105279088a1
+
+--001a1148fd70c9dc7105279088a1
+Content-Type: multipart/alternative; boundary=001a1148fd70c9dc6d05279088a0
+
+--001a1148fd70c9dc6d05279088a0
+Content-Type: text/plain; charset=UTF-8
+
+Here is some text, then an image...
+
+[image: Inline image 1]
+
+And some final text.
+
+--001a1148fd70c9dc6d05279088a0
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">Here is some text, then an image...<div><br></div><div><img src="cid:ii_151cefbe952bc940" alt="Inline image 1" width="118" height="43"><br></div><div><br></div><div>And some final text.</div></div>
+
+--001a1148fd70c9dc6d05279088a0--
+--001a1148fd70c9dc7105279088a1
+Content-Type: image/png; name="image.png"
+Content-Disposition: inline; filename="image.png"
+Content-Transfer-Encoding: base64
+Content-ID: <ii_151cefbe952bc940>
+X-Attachment-Id: ii_151cefbe952bc940
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+--001a1148fd70c9dc7105279088a1--

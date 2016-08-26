@@ -1,0 +1,104 @@
+Return-Path: <foo@bar.com>
+Received: from qproxy2.mail.unifiedlayer.com (qproxy2-pub.mail.unifiedlayer.com [69.89.16.161])
+ by inbound-smtp.us-east-1.amazonaws.com with SMTP id q6c852br2348i5ma8cr3asvhrku55g20nk095b01
+ for scotam-west@bindhqmail.com;
+ Thu, 07 Jan 2016 18:14:21 +0000 (UTC)
+Received: (qmail 17767 invoked by uid 0); 7 Jan 2016 18:14:20 -0000
+Received: from unknown (HELO cmgw3) (10.0.90.84)
+  by qproxy2.mail.unifiedlayer.com with SMTP; 7 Jan 2016 18:14:20 -0000
+Received: from box448.bluehost.com ([69.89.31.248])
+	by cmgw3 with 
+	id 3DEF1s00R5MCETH01DEJp5; Thu, 07 Jan 2016 18:14:18 -0700
+X-Authority-Analysis: v=2.1 cv=bej4Do/B c=1 sm=1 tr=0
+ a=dLJ0CBFrT8QW+3yeqlG/4A==:117 a=dLJ0CBFrT8QW+3yeqlG/4A==:17 a=cNaOj0WVAAAA:8
+ a=f5113yIGAAAA:8 a=L9H7d07YOLsA:10 a=9cW_t1CCXrUA:10 a=s5jvgZ67dGcA:10
+ a=iAGy9df9AAAA:8 a=pGLkceISAAAA:8 a=1XWaLZrsAAAA:8 a=x25COIZeJJIA:10
+ a=7aQ_Q-yQQ-AA:10 a=I7clDXBqAAAA:8 a=ZBE9X2KJAAAA:8 a=8hJdWcWlAAAA:8
+ a=SLTtdXUSAAAA:8 a=Khu1NIO20IaSuuIZ17kA:9 a=LWtR9w4jWfjT1Yaj:21
+ a=eOIMz1f3ZXMo7sr2:21 a=QEXdDO2ut3YA:10 a=R6zjn51O5mQA:10 a=8wfVIz30ylgA:10
+ a=zJhwKsSYQx4A:10 a=57LHP2-W1nMA:10 a=ERyeDCDmFZEA:10 a=sTgwG9ammlQA:10
+ a=zaRPKNHaD5XMoPD39XwA:9 a=e7-4hPwZIojWhBxV:21 a=KmAfSRkduOdm1VGY:21
+ a=EwWJcPXbDC_ji0-P:21 a=nR6-19aWUwoA:10 a=vRY1TWwE1LG1KkevRd0A:9
+ a=eno43Zv3dcNCSGc4:18 a=KQqxNPgzF0kA:10 a=fFVNbn5IntRDnEpLRvAA:9
+ a=n3BslyFRqc0A:10
+Received: from [209.85.160.174] (port=33287 helo=mail-yk0-f174.google.com)
+	by box448.bluehost.com with esmtps (TLSv1.2:AES128-GCM-SHA256:128)
+	(Exim 4.84)
+	(envelope-from <crodriguez@scottishamerican.com>)
+	id 1aHF4j-0001QV-BB
+	for scotam-west@bindhq.com; Thu, 07 Jan 2016 11:14:17 -0700
+Received: by mail-yk0-f174.google.com with SMTP id k129so316231912yke.0
+        for <scotam-west@bindhq.com>; Thu, 07 Jan 2016 10:14:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=scottishamerican-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=mhot6oMg+iZuxyzF2sJkrvuuH7ybBDD8TKpwuG9/vEU=;
+        b=XA5wkCqY4gfQ59Nr6xGiyWz6ab55aXMDddOOvD2CPmeZHJD9jycwtptrGBQqQRW48H
+         Vjw69QrYKUNMGT3oEzI6Nd9y5RrNFJ81Lq/aJ4VphFRriQ/56s5n3irxUbYdxJBouQwa
+         tGMQ4qG8QdlhGQ4fA5yOs0a9EZcopKRx4e9ceUNRI9Ay9M4QZFWQQCpuSxSJ5HNYtW6Y
+         /KEpy0V9RhFy/kaS4ER7ocZFFWH27mpvM57uhGTxeLniOqdd3ld7ZnyttIFPMAWf2//S
+         tUMRW5EhAq+hPSrYcMPV2LA9kARdqFbys7n5Xf3qHmEKvpK6X1H6hB8yHxPYBk9BSiln
+         nH4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:date:message-id:subject:from:to
+         :content-type;
+        bh=mhot6oMg+iZuxyzF2sJkrvuuH7ybBDD8TKpwuG9/vEU=;
+        b=jC65DMza2xfPVL9xOikYCdQkJVvFzry47xU9pFV/Va1T+OwxmPhPAenx58t6xv1oeF
+         ulA83DTDlxB54fsWIOowA39JI92GZswuHcpk+hTyva8Dmu2dFqAqanrKudFFEGT+M1Bd
+         tANDLTvVECjpkwGgS5urIGE3VP7yQk+J0fmUmbFFBP6Od9Pt+9D/9BDGDUddlN4Eb3lc
+         EQ6tTglAseZzc3PInbHSg3d8vxk1ORYtx0lXcpz6FltEtSD3OKKosjaOJmqt+Niq/kmw
+         +OrW2eqkAZ7Su9PhEczlG8dUUxFduSla02eigbFHMXiDFd3SXWEgcry6OXGpjsndZmNw
+         I6WA==
+X-Gm-Message-State: ALoCoQnz303y15argufydSstHJg5oQ+3iKqf11LpmrCTWAkYiL9U0iK4kioJMz5xFJ65DG8M0HtJggz0sp7EUounsNtHyU1aCKXp6oXVR9UN3lsI3LZj3Yo=
+MIME-Version: 1.0
+X-Received: by 10.129.56.8 with SMTP id f8mr48549723ywa.279.1452190454054;
+ Thu, 07 Jan 2016 10:14:14 -0800 (PST)
+Received: by 10.37.17.65 with HTTP; Thu, 7 Jan 2016 10:14:13 -0800 (PST)
+Date: Thu, 7 Jan 2016 10:14:13 -0800
+Message-ID: <CADjrRFJewQ6OWF69HTY5ed0-dTp71i3wKN_6AQeh1Tw4r6BkkA@mail.gmail.com>
+Subject: WS233870 - Torres Family Trust - Currently Valued Loss Runs / loss
+ runs to the agent
+From: Foo Bar <foo@bar.com>
+To: test@test.com
+Content-Type: multipart/mixed; boundary=001a114c8f2c296dd00528c270ad
+X-Identified-User: {0000:box448.bluehost.com:local:local} {sentby:Delivered locally}
+
+--001a114c8f2c296dd00528c270ad
+Content-Type: multipart/related; boundary=001a114c8f2c296dcd0528c270ac
+
+--001a114c8f2c296dcd0528c270ac
+Content-Type: multipart/alternative; boundary=001a114c8f2c296dc80528c270ab
+
+--001a114c8f2c296dc80528c270ab
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+EMAIL TO THE AGENT, LR, cr...
+
+--001a114c8f2c296dc80528c270ab
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir="ltr">Test Message</div>
+
+--001a114c8f2c296dc80528c270ab--
+--001a114c8f2c296dcd0528c270ac
+Content-Type: image/jpeg; name="image001.jpg"
+Content-Disposition: inline; filename="image001.jpg"
+Content-Transfer-Encoding: base64
+Content-ID: <image001.jpg@01D1492C.D615B2F0>
+X-Attachment-Id: a018fabdda74382e_0.1
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+--001a114c8f2c296dcd0528c270ac--
+--001a114c8f2c296dd00528c270ad
+Content-Type: application/pdf; 
+	name="2015-2016  LOSS RUNS - Torres... (as of 1-07-2016).PDF"
+Content-Disposition: attachment; 
+	filename="2015-2016  LOSS RUNS - Torres... (as of 1-07-2016).PDF"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_ij4k2itd0
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+--001a114c8f2c296dd00528c270ad--
