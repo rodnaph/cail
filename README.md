@@ -103,10 +103,10 @@ of attachments (which could be many MB's so are not cached).
 
 ## Testing
 
-Tests use _clojure.test_.
+Tests use Midje.
 
 ```
-lein test
+lein midje
 ```
 
 ## Installation
