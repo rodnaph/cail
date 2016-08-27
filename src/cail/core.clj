@@ -1,7 +1,7 @@
 
 (ns cail.core
   (:import (javax.mail Address Message Message$RecipientType Part)
-           (javax.mail.internet MimeMessage MimeMultipart))
+           (javax.mail.internet ContentType MimeMessage MimeMultipart))
   (:require [clojure.string :as string]))
 
 (def ^{:private true
@@ -14,16 +14,31 @@
 (def ^{:private true}
   default-fields [:id :subject :body :from :to :cc :bcc :reply-to :sent-on :content-type :size :attachments])
 
-(defn- address->map [^Address address]
+(defn- address->map
+  [^Address address]
   (if address
     {:name (.getPersonal address)
      :email (.getAddress address)}
     default-address))
 
-(defn- is-disposition [part disposition]
+(defn- is-disposition
+  [part disposition]
   (.equalsIgnoreCase
     disposition
     (.getDisposition part)))
+
+(defn- content-type
+  [part]
+  (.getBaseType
+    (ContentType.
+      (.getContentType part))))
+
+(defn- charset
+  [part]
+  (.getParameter
+    (ContentType.
+      (.getContentType part))
+    "charset"))
 
 ;; Attachments
 ;; -----------
@@ -65,7 +80,8 @@
   {:content-id (.getContentID part)
    :content-stream (when *with-content-stream*
                      (.getInputStream part))
-   :content-type (.getContentType part)
+   :content-type (content-type part)
+   :charset (charset part)
    :file-name (.getFileName part)
    :id id
    :size (.getSize part)
@@ -147,7 +163,11 @@
 
 (defmethod field :content-type
   [_ ^Message msg]
-  (.getContentType (body msg)))
+  (content-type (body msg)))
+
+(defmethod field :charset
+  [_ ^Message msg]
+  (charset (body msg)))
 
 (defmethod field :size
   [_ ^Message msg]

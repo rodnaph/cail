@@ -26,7 +26,7 @@
                                                 :bcc (list)
                                                 :body "<div dir=\"ltr\">Test Message</div>\r\n"
                                                 :cc (list)
-                                                :content-type "text/html; charset=UTF-8"
+                                                :content-type "text/html"
                                                 :from {:email "foo@bar.com"
                                                        :name "admin admin"}
                                                 :id 0
@@ -39,14 +39,18 @@
                                                            :name nil})}))
 
        (fact "fields to be returned can be specified"
-             (parse-message "simple" [:size :subject]) => (just {:size 230
-                                                                 :subject "Test Subject"})))
+             (parse-message "simple" [:size :subject :charset])
+             =>
+             (just {:size 230
+                    :subject "Test Subject"
+                    :charset "UTF-8"})))
 
 (facts "about parsing attachments"
        (fact "attachments can be parsed"
              (let [{:keys [attachments]} (parse-message "attachment_1")]
                (count attachments) => 1
-               (first attachments) => (contains {:content-type "text/plain; charset=US-ASCII; name=\"attachment_ct.txt\""
+               (first attachments) => (contains {:content-type "text/plain"
+                                                 :charset "US-ASCII"
                                                  :file-name "attachment_cd.txt"
                                                  :type :attachment
                                                  :size 32
@@ -54,7 +58,8 @@
 
        (fact "filename of attachment falls back to content type name"
              (let [{:keys [attachments]} (parse-message "attachment_2")]
-               (first attachments) => (contains {:content-type "image/png; charset=US-ASCII; name=\"image.png\""
+               (first attachments) => (contains {:content-type "image/png"
+                                                 :charset "US-ASCII"
                                                  :file-name "image.png"
                                                  :type :inline})))
 
@@ -69,8 +74,9 @@
 
 (facts "about parsing inline attachments"
        (let [{:keys [attachments]} (parse-message "inline")]
-         (first attachments) => (contains {:content-type "image/png; name=\"image.png\""
+         (first attachments) => (contains {:content-type "image/png"
                                            :type :inline
+                                           :file-name "image.png"
                                            :content-id "<ii_151cefbe952bc940>"})))
 
 (facts "about parsing embedded multipart messages"
