@@ -24,14 +24,14 @@ attachments".
 ; etc...
 ```
 
+The message body will prefer HTML content types.
+
+## IMAP
+
 When given a message to parse it will still require the connection
-to its associated folder to fetch its data from.  The message body
-will prefer HTML content types.
-
-### Message IDs
-
-Be aware that the _:id_ attached to each message is dependent on its
-folder, and can change depending on if messages get deleted or moved.
+to its associated folder to fetch its data from.  Also be aware that
+the _:id_ attached to each message is dependent on its folder, and
+can change depending on if messages get deleted or moved.
 
 ## Attachments
 
@@ -99,7 +99,7 @@ mail stores) that the Java versions do.
 
 This means that after parsing and caching a message the only time
 you need to go back to the mail store is to fetch the content
-of attachments (which could be many MB's so are not cached).
+of attachments.
 
 ## Testing
 
