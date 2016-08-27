@@ -4,19 +4,23 @@
            (javax.mail.internet MimeMessage MimeMultipart))
   (:require [clojure.string :as string]))
 
-(def ^{:dynamic true} *with-content-stream* false)
+(def ^{:private true
+       :dynamic true}
+  *with-content-stream* false)
 
-(def default-address {:name nil :email ""})
+(def ^{:private true}
+  default-address {:name nil :email ""})
 
-(def default-fields [:id :subject :body :from :to :cc :bcc :reply-to :sent-on :content-type :size :attachments])
+(def ^{:private true}
+  default-fields [:id :subject :body :from :to :cc :bcc :reply-to :sent-on :content-type :size :attachments])
 
-(defn address->map [^Address address]
+(defn- address->map [^Address address]
   (if address
     {:name (.getPersonal address)
      :email (.getAddress address)}
     default-address))
 
-(defn is-disposition [part disposition]
+(defn- is-disposition [part disposition]
   (.equalsIgnoreCase
     disposition
     (.getDisposition part)))
@@ -24,15 +28,15 @@
 ;; Attachments
 ;; -----------
 
-(defn attachment?
+(defn- attachment?
   [multipart]
   (is-disposition multipart Part/ATTACHMENT))
 
-(defn inline?
+(defn- inline?
   [multipart]
   (is-disposition multipart Part/INLINE))
 
-(defn any-attachment?
+(defn- any-attachment?
   [multipart]
   (or (attachment? multipart)
       (inline? multipart)))
@@ -46,7 +50,7 @@
         (multiparts* c f)
         (when (f p) p)))))
 
-(defn multiparts
+(defn- multiparts
   [^MimeMessage msg f]
   (filter
     (complement nil?)
@@ -56,7 +60,7 @@
             (multiparts* content f)
             content)))))
 
-(defn ->attachment
+(defn- ->attachment
   [part id]
   {:content-id (.getContentID part)
    :content-stream (when *with-content-stream*
@@ -67,7 +71,7 @@
    :size (.getSize part)
    :type (if (inline? part) :inline :attachment)})
 
-(defn attachments
+(defn- attachments
   [^MimeMessage msg]
   (let [xs (multiparts msg any-attachment?)]
     (map ->attachment
@@ -77,14 +81,14 @@
 ;; Message Body
 ;; ------------
 
-(defn prefer-html
+(defn- prefer-html
   [x y]
   (if (string/starts-with?
         (.getContentType x)
         "text/html")
     -1 1))
 
-(defn body
+(defn- body
   [^MimeMessage msg]
   (first
     (sort
@@ -94,7 +98,8 @@
 ;; Fields
 ;; ------
 
-(defmulti field (comp first list))
+(defmulti ^{:private true}
+  field (comp first list))
 
 (defmethod field :id
   [_ ^Message msg]
