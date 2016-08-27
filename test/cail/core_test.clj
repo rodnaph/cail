@@ -43,7 +43,10 @@
              =>
              (just {:size 230
                     :subject "Test Subject"
-                    :charset "UTF-8"})))
+                    :charset "UTF-8"}))
+
+       (fact "case of content type is lowercased"
+             (parse-message "uppercase") => (contains {:content-type "text/html"})))
 
 (facts "about parsing attachments"
        (fact "attachments can be parsed"

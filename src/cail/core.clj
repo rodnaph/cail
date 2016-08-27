@@ -1,8 +1,7 @@
 
 (ns cail.core
   (:import (javax.mail Address Message Message$RecipientType Part)
-           (javax.mail.internet ContentType MimeMessage MimeMultipart))
-  (:require [clojure.string :as string]))
+           (javax.mail.internet ContentType MimeMessage MimeMultipart)))
 
 (def ^{:private true
        :dynamic true}
@@ -29,9 +28,10 @@
 
 (defn- content-type
   [part]
-  (.getBaseType
-    (ContentType.
-      (.getContentType part))))
+  (.toLowerCase
+    (.getBaseType
+      (ContentType.
+        (.getContentType part)))))
 
 (defn- charset
   [part]
@@ -99,9 +99,7 @@
 
 (defn- prefer-html
   [x y]
-  (if (string/starts-with?
-        (.getContentType x)
-        "text/html")
+  (if (= "text/html" (content-type x))
     -1 1))
 
 (defn- body
