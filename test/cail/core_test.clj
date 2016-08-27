@@ -98,9 +98,9 @@
                                 :id 1
                                 :content-stream nil}))
 
-       (fact "their content can be requested"
-             (with-content-stream
-               (message->attachment
-                 (create-message "message_rfc822")
-                 1) => (contains {:content-stream (complement nil?)}))))
+       (fact "their content can be requested and read"
+             (let [attachment (with-content-stream
+                                (message->attachment
+                                  (create-message "attachment_1") 1))]
+               (slurp (:content-stream attachment)) => "test attachment content\n")))
 
