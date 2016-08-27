@@ -31,7 +31,8 @@ The message body will prefer HTML content types.
 When given a message to parse it will still require the connection
 to its associated folder to fetch its data from.  Also be aware that
 the _:id_ attached to each message is dependent on its folder, and
-can change depending on if messages get deleted or moved.
+can change depending on if messages get deleted or moved - so use `uid`
+where available.
 
 ## Attachments
 
