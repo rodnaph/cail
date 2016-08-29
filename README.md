@@ -65,11 +65,17 @@ The _:content-stream_ is an input stream for reading the attachment.
 
 ### Individual Attachments
 
-You can also ask for individual attachments by index...
+Attachments come with an `:id` property you can use to ask for them individually...
 
 ```clojure
+(def message
+  (message->map msg))
+  
+; snippet
+; {:attachments [{:id 1} {:id 2}]}
+  
 (def attachment 
-  (message->attachment message 0))
+  (message->attachment message 1))
 ```
 
 By default this will *not* return the content stream for the 
@@ -78,7 +84,7 @@ attachment, just wrap it in _with-content-stream_ to fetch that.
 ```clojure
 (def attachment
   (with-content-stream
-    (message->attachment message 0)))
+    (message->attachment message 1)))
 ```
 
 ## Selecting Fields
