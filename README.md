@@ -68,14 +68,11 @@ The _:content-stream_ is an input stream for reading the attachment.
 Attachments come with an `:id` property you can use to ask for them individually...
 
 ```clojure
-(def message
-  (message->map msg))
-  
-; snippet
+; (message->map msg)
 ; {:attachments [{:id 1} {:id 2}]}
   
 (def attachment 
-  (message->attachment message 1))
+  (message->attachment msg 1))
 ```
 
 By default this will *not* return the content stream for the 
