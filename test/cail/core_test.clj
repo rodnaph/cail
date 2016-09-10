@@ -68,7 +68,12 @@
 
        (fact "filename of attachment is nill when nothing specified"
              (let [{:keys [attachments]} (parse-message "attachment_3")]
-               (first attachments) => (contains {:file-name nil}))))
+               (first attachments) => (contains {:file-name nil})))
+
+       (fact "non textual multipaarts without disposition are attachments"
+             (let [{:keys [body attachments]} (parse-message "attachment_5")]
+               (count attachments) => 1
+               body => "The Body")))
 
 (facts "about parsing recipients"
        (parse-message "recipients") => (contains {:to (just [anything anything])

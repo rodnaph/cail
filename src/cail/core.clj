@@ -43,13 +43,21 @@
 ;; Attachments
 ;; -----------
 
-(defn- attachment?
-  [multipart]
-  (is-disposition multipart Part/ATTACHMENT))
-
 (defn- inline?
   [multipart]
   (is-disposition multipart Part/INLINE))
+
+(defn- textual?
+  [multipart]
+  (contains?
+    #{"text/plain" "text/html"}
+    (content-type multipart)))
+
+(defn- attachment?
+  [multipart]
+  (or (is-disposition multipart Part/ATTACHMENT)
+      (and (not (.getDisposition multipart))
+           (not (textual? multipart)))))
 
 (defn- any-attachment?
   [multipart]
