@@ -1,43 +1,7 @@
-Delivered-To: foo@bar.com
-Received: by 10.202.213.211 with SMTP id m202csp495204oig;
-        Fri, 9 Sep 2016 12:14:51 -0700 (PDT)
-X-Received: by 10.194.232.200 with SMTP id tq8mr188860wjc.63.1473448491673;
-        Fri, 09 Sep 2016 12:14:51 -0700 (PDT)
-Return-Path: <bar@foo.com>
-Received: from mx-relay04-haj2.antispameurope.com (mx-relay04-haj2.antispameurope.com. [83.246.65.204])
-        by mx.google.com with ESMTPS id 79si4246168wmo.143.2016.09.09.12.14.51
-        for <foo@bar.com>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 09 Sep 2016 12:14:51 -0700 (PDT)
-Received-SPF: pass (google.com: domain of bar@foo.com designates 83.246.65.204 as permitted sender) client-ip=83.246.65.204;
-Authentication-Results: mx.google.com;
-       spf=pass (google.com: domain of bar@foo.com designates 83.246.65.204 as permitted sender) smtp.mailfrom=bar@foo.com
-Return-Path: <bar@foo.com>
-Received: from unknown ([193.28.154.5]) by mx-gate04-haj2.antispameurope.com;
- Fri, 09 Sep 2016 21:14:50 +0200
-Received: from CPPWEB001 (10.200.0.168) by CSMAILHUB002.thecloudservice.biz
- (10.200.0.102) with Microsoft SMTP Server id 14.3.266.1; Fri, 9 Sep 2016
- 20:14:50 +0100
-MIME-Version: 1.0
-From: <bar@foo.com>
-To: <foo@bar.com>
 Date: Fri, 9 Sep 2016 20:14:48 +0100
 Subject: The Subject
 Content-Type: multipart/mixed;
 	boundary="--boundary_337_2b8ea490-8a4a-417a-92e0-2cff6db79473"
-Message-ID:
- <e4dfca8c-c132-4409-8ff7-bd3930c3eb61@CSMAILHUB002.thecloudservice.biz>
-X-cloud-security-sender:bar@foo.com
-X-cloud-security-recipient:foo@bar.com
-X-cloud-security-crypt: load encryption module
-X-cloud-security-crypt: load encryption module
-X-cloud-security-crypt: positive policy
-X-cloud-security-Mailarchiv: E-Mail archived for: bar@foo.com
-X-cloud-security-Mailarchivtype:outbound
-X-cloud-security-Virusscan:CLEAN
-X-cloud-security-disclaimer: This E-Mail was scanned by E-Mailservice on mx-gate04-haj2 with 0D55F2118002
-X-cloud-security-connect: unknown[193.28.154.5], TLS=1, IP=193.28.154.5
-X-cloud-security:scantime:.2846
 
 ----boundary_337_2b8ea490-8a4a-417a-92e0-2cff6db79473
 Content-Type: text/plain; charset="us-ascii"

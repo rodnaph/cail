@@ -1,38 +1,4 @@
-Return-Path: <foo@bar.com>
-Received: from mail-wm0-f47.google.com (mail-wm0-f47.google.com [74.125.82.47])
- by inbound-smtp.us-east-1.amazonaws.com with SMTP id 20e4k0iav4mraa2dlchccp55m18jofpn6upi27o1
- for test@test.com;
- Thu, 10 Dec 2015 16:39:32 +0000 (UTC)
-Received: by mail-wm0-f47.google.com with SMTP id c201so41913575wme.0
-        for <test@test.com>; Thu, 10 Dec 2015 08:39:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=owsy-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:date:message-id:subject:from:to:content-type;
-        bh=3epQcEIfqqxh1N43oz0lF9SzVtxc87IVC5Y/+VXq4bo=;
-        b=CHP4t2CiR/e1T8QRaIW3ew63XwAaJMgJcqM2JLeREPZbLlGcNTtwAXwBfCPNHWDWPB
-         E3t1/4wGfM4tAFVlHSB3Og2a+1sFXH2AXOT1H1i2rEQ0eOCo1o8W5Ai4x0ijP3nnJPqn
-         F+9WFe6+PPa6DLe0RA2taVK+QTG3Rq0XxKH1VO0D34p27414SF31Wj7dqlICCyB1hhtm
-         B0b/hGWHU2Jl2LGjR6EVaAUCibgqlhLjz9J8/BxHpmclb/iceuact+SpT1snK7OEQ4/U
-         8QVGXbCUvj8Ns4Qx4KmlDHbxq3/TmVNxiKRvFa4Zk3siJW5dtv2fohDN2Jz7WBH97se1
-         U9BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20130820;
-        h=x-gm-message-state:mime-version:date:message-id:subject:from:to
-         :content-type;
-        bh=3epQcEIfqqxh1N43oz0lF9SzVtxc87IVC5Y/+VXq4bo=;
-        b=c4ux4W8bInfD+0TArjARsBQBOMHh8XDE+mJbuq+fSsfaP4ricl5E/ff6FohbysEJjk
-         GVjyxHMCzD7iE/BGK3t+FZNA4z965d3993EaJM4Ti9zT8g34QxRMPRk4N6zGVpwV8mfO
-         XmVJku8adG4DFv4r+JitzQWaUb7eZvLazHbxCQQl1Mcn/NEqcxXx0qqHUn4WiRwvvuGS
-         rfJnllaGewaGNEkj9uySK+7LVjii1BPfEduURvcSxR3mw6xFqqn26ZCCu7LDsqSjjURf
-         617+Yx6vfMAXUaqL+tfrxcEZHmsL+2oZo/kzt69gyFo/DK+BCa+o9pdwXEUJHpq9B2e0
-         iWqg==
-X-Gm-Message-State: ALoCoQm5mfqN6gJe0Fz+HsUQk/oEV0wk2QvVNSKR4HuG1VfFtS0q0Sp55bqz7k4lI99E+UG0ib5lfK3894SKK9IafFG9+FvJCg==
-MIME-Version: 1.0
-X-Received: by 10.194.236.38 with SMTP id ur6mr13871643wjc.13.1449765571677;
- Thu, 10 Dec 2015 08:39:31 -0800 (PST)
-Received: by 10.194.108.103 with HTTP; Thu, 10 Dec 2015 08:39:31 -0800 (PST)
 Date: Thu, 10 Dec 2015 16:39:31 +0000
-Message-ID: <CAACinZSTSFor4e9nPJfTTYzF+G1kBHuCpBHG7jFvYh1JcMrQiQ@mail.gmail.com>
 Subject: Test Subject
 From: admin admin <foo@bar.com>
 To: test@test.com

@@ -1,64 +1,10 @@
-Return-Path: <foo@bar.com>
-Received: from qproxy4-pub.mail.unifiedlayer.com (qproxy4-pub.mail.unifiedlayer.com [66.147.248.250])
- by inbound-smtp.us-east-1.amazonaws.com with SMTP id rotpdkvph6f72utnn5eein9p638rubiapm8g6f81
- for scotam-west@bindhqmail.com;
- Fri, 08 Jan 2016 00:42:50 +0000 (UTC)
-Received: (qmail 4506 invoked by uid 0); 8 Jan 2016 00:42:49 -0000
-Received: from unknown (HELO CMOut01) (10.0.90.82)
-  by qproxy4.mail.unifiedlayer.com with SMTP; 8 Jan 2016 00:42:49 -0000
-Received: from box448.bluehost.com ([69.89.31.248])
-	by CMOut01 with 
-	id 3Cik1s00W5MCETH01Cinr7; Thu, 07 Jan 2016 17:42:48 -0700
-X-Authority-Analysis: v=2.1 cv=Zc6OaKlA c=1 sm=1 tr=0
- a=dLJ0CBFrT8QW+3yeqlG/4A==:117 a=dLJ0CBFrT8QW+3yeqlG/4A==:17 a=cNaOj0WVAAAA:8
- a=f5113yIGAAAA:8 a=L9H7d07YOLsA:10 a=9cW_t1CCXrUA:10 a=s5jvgZ67dGcA:10
- a=j_eTBu9eAAAA:8 a=tBAQ9OR9tU0A:10 a=xqWC_Br6kY4A:10 a=x25COIZeJJIA:10
- a=7aQ_Q-yQQ-AA:10 a=ZBE9X2KJAAAA:8 a=iAGy9df9AAAA:8 a=8hJdWcWlAAAA:8
- a=SLTtdXUSAAAA:8 a=LNY6gFgB-kv6DXsuRBYA:9 a=gqMezrm9NPIAcbOP:21
- a=FgjMFffWt8EnDWJb:21 a=QEXdDO2ut3YA:10 a=qA_nv_vCo0YA:10 a=6eDtekR29ekA:10
- a=R6zjn51O5mQA:10 a=8wfVIz30ylgA:10 a=zJhwKsSYQx4A:10 a=idTvf7YT5okA:10
- a=yMhMjlubAAAA:8 a=SSmOFEACAAAA:8 a=Zwd0oxgiYO_TMj67j70A:9
- a=ufli3Go6GAVGPbY_:21 a=2rxqfu88CUNxGdpg:21 a=eXAQg6JPUB1Bl4dO:21
- a=gKO2Hq4RSVkA:10 a=UiCQ7L4-1S4A:10 a=hTZeC7Yk6K0A:10 a=frz4AuCg-hUA:10
- a=PJsbsyGOfF9WD4tDmKgA:9 a=fT7PMdWHCvwAqx8r:18 a=KQqxNPgzF0kA:10
- a=YkFDYkEDzx59L0IQn68A:9 a=DfmvOQGb330RvhxP:18 a=N2dutMJQT-KCERrpalIA:9
- a=8HR0azuaxF3U3tKy:18 a=bHEu4p7CAAAA:8 a=3j4BkbkPAAAA:8 a=jU4qhlNgAAAA:8
- a=JqEG_dyiAAAA:8 a=1XWaLZrsAAAA:8 a=9_fIu2FRWC20V9SoZn0A:9
- a=eChN4kXBN38QN85n:21 a=f4t7h8zmFPExLAYJ:21 a=pILNOxqGKmIA:10
- a=UwtdkPnWpAYA:10 a=noTwVeH_bToA:10 a=BnZy8mmonOoA:10
- a=663ht2t690le-W_ULTgA:9 a=2QzykdH0plyHL6AH:21 a=yTOKuggtfwpnAQ6E:21
- a=DpghDmNPne5Vwyur:21 a=78OSEjE5vvUOCEUkXlwA:9 a=u_24vH0QcHaTqrG_:18
- a=d33RdmdhvwKXTbAWPGYA:9 a=gFOxuv8Zw6tR4qBt:18 a=Ek7zxOVa90ga2edwN3sA:9
- a=axFdiNVmvfIPeZeJ:18 a=4OuOhIdldFfOcHstPX8A:9 a=iyPCSzJlaOGXy0-1:18
- a=nSs_Hq_xIEwfiyrM5XMA:9 a=6c8D86jKgoSFkau_:18 a=RN-Ha580ICozGCQcQf8A:9
- a=ZEI9PkakGBKK_e-L:18 a=DI53cmLNpI9KBeWaYnYA:9 a=37CHNKSQI7M3wQSx:18
-Received: from [184.178.127.35] (port=49967 helo=mail2.snappins.com)
-	by box448.bluehost.com with esmtps (TLSv1:AES128-SHA:128)
-	(Exim 4.84)
-	(envelope-from <katem@snappins.com>)
-	id 1aHL8e-0005p8-Lm
-	for scotam-west@bindhq.com; Thu, 07 Jan 2016 17:42:45 -0700
-Received: from MAIL2.snappins.local ([fe80::9da3:3146:719e:1e1d]) by
- mail2.snappins.local ([fe80::9da3:3146:719e:1e1d%15]) with mapi id
- 14.03.0123.003; Thu, 7 Jan 2016 16:40:47 -0800
 From: Foo Bar <foo@bar.com>
 To: <test@test.com>
 Subject: FW: WS269992 - Cheeryble Properties Policy#WS269992 / LOSS PAYEE
  REQUEST
-Thread-Topic: WS269992 - Cheeryble Properties Policy#WS269992 / LOSS PAYEE
- REQUEST
-Thread-Index: AQHRLKHAa6tr9zGqukCRJceD3bPFR5638bqQgBekCjCAIWssIA==
 Date: Fri, 8 Jan 2016 00:40:46 +0000
-Message-ID: <C74E4C93273ABF47AF5ADB0233AE464362521B39@mail2.snappins.local>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-x-originating-ip: [10.0.0.24]
 Content-Type: multipart/mixed;
 	boundary="_008_C74E4C93273ABF47AF5ADB0233AE464362521B39mail2snappinslo_"
-MIME-Version: 1.0
-X-Identified-User: {0000:box448.bluehost.com:local:local} {sentby:Delivered locally}
 
 --_008_C74E4C93273ABF47AF5ADB0233AE464362521B39mail2snappinslo_
 Content-Type: multipart/related;
@@ -124,36 +70,10 @@ Content-Disposition: attachment;
 	creation-date="Fri, 08 Jan 2016 00:40:46 GMT";
 	modification-date="Fri, 08 Jan 2016 00:40:46 GMT"
 
-Received: from ams1-mh587.smtproutes.com (5.10.67.101) by mail2.snappins.local
- (10.0.0.4) with Microsoft SMTP Server id 14.3.123.3; Thu, 17 Dec 2015
- 10:05:43 -0800
-Received: from p01c11o148.mxlogic.net ([208.65.144.71]) by
-   ams1-mh587.smtproutes.com [(5.10.67.101)] with ESMTP via TCP
-   (TLSv1/TLS_DHE_RSA_WITH_AES_256_CBC_SHA); 17 Dec 2015 18:07:01 +0000
-Received: from unknown [75.144.250.213] (EHLO landerint.com)	by
- p01c11o148.mxlogic.net(mxl_mta-8.5.0-4)	with ESMTP id
- 4c9f2765.0.3789854.00-149.10442033.p01c11o148.mxlogic.net (envelope-from
- <tim@landerint.com>);	Thu, 17 Dec 2015 11:07:09 -0700 (MST)
-From: Tim Sauer <Tim@landerint.com>
-To: Kate McNeill <katem@snappins.com>
-Subject: RE: Lander International - Property Coverage
-Thread-Topic: Lander International - Property Coverage
-Thread-Index: AdEnnr50QKBDZ0+uStCjDb2BAARsdwFg1kxwAvGNRFAAA2OUkA==
-Content-Class: urn:content-classes:message
 Date: Thu, 17 Dec 2015 18:08:48 +0000
-Message-ID: <B16B9C8D65054242B2807BB83AB6D09601242CCD@SERVER.lander.office>
-References: <C74E4C93273ABF47AF5ADB0233AE464362517F25@mail2.snappins.local>
-In-Reply-To: <C74E4C93273ABF47AF5ADB0233AE464362517F25@mail2.snappins.local>
-Content-Language: en-US
-X-MS-Exchange-Organization-AuthAs: Anonymous
-X-MS-Exchange-Organization-AuthSource: mail2.snappins.local
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-x-katharion-id: 1450375621.28210.ams1-mh587 (0.0)
 Content-Type: multipart/related;
 	boundary="_012_B16B9C8D65054242B2807BB83AB6D09601242CCDSERVERlanderoff_";
 	type="multipart/alternative"
-MIME-Version: 1.0
 
 --_012_B16B9C8D65054242B2807BB83AB6D09601242CCDSERVERlanderoff_
 Content-Type: multipart/alternative;

@@ -1,38 +1,4 @@
-Return-Path: <foo@bar.com>
-Received: from mail-wm0-f44.google.com (mail-wm0-f44.google.com [74.125.82.44])
- by inbound-smtp.us-east-1.amazonaws.com with SMTP id 74v6tgv357vkqgh4duevcub9fmef3qdcerv6okg1
- for test@test.com;
- Sat, 12 Dec 2015 18:58:16 +0000 (UTC)
-Received: by mail-wm0-f44.google.com with SMTP id l68so55027388wml.0
-        for <test@test.com>; Sat, 12 Dec 2015 10:58:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=owsy-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:date:message-id:subject:from:to:cc:content-type;
-        bh=TP8PEBal3f6mcjQjb5p3gjgRAWve+NmjDuyv5Zs5ZgA=;
-        b=YMnczFmzBtXyhWycXWE1r2lq7oNaenMGhfWhk1HvGo4Knzp27no8kXQXztpzRJHXz/
-         UBgH6BgGvxBJvvLzBgV4G1utqptgPMgn1+DCn3iUJScyGZxJw8eG50emolw7g64dD5Np
-         r1v9LX8sY98kuWLS1It2bpdSWTxzSb6KaY2qPRn/Ew5tU95KAXFwVOAeChq7skTUphK5
-         2BUPoadKheKAk26GwOc2Ja94fAVy9qnxKRLzteIRuS8WXhTBCHMHJasUHDp4GFgaL+Et
-         7juV8XZ40+IAey+s6EbJxdrs0Uy8UbCiXrXLwY50cePIZs9gBzK6xxXpZ/mXLUN7TCBq
-         tdbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20130820;
-        h=x-gm-message-state:mime-version:date:message-id:subject:from:to:cc
-         :content-type;
-        bh=TP8PEBal3f6mcjQjb5p3gjgRAWve+NmjDuyv5Zs5ZgA=;
-        b=gpuK08WK32w8sMpImhFtFyhGI79nzkLw+QdY0ljugVpJSpi8Un79sVFzlFOHm/8Q29
-         SQ18jAsyKtaVY93LpuHLQJc0StIT2rxIOZqUp+ZCGMwS97BIX26u8bdn5Xp5YF/KPGnQ
-         SexV/xdGT4/CA08Mnb0L1DIPODd7OkiIQbgVaYfJrRQbKpykqE/6imG0Z2YuWHE4ftXO
-         RJ1FDOnuRP7EZXa37QkgmhRJULeG60ZnfOe5UzAjX/t6RuWyrYvLN5ugltmHlyeLh8Pe
-         NNVAwqNKYb10Brv9pC0+ckzjmW1jj6zxxKT/OgLNvq9tVuu5ZML47HaddD5YhhvhhiL/
-         FE/w==
-X-Gm-Message-State: ALoCoQk+uT1aooWIJyoVvvwVY/O6H4GEGYG2j4QpEi9EHZfHXfjDkKm0caggKn1asK3fAJZAVuR/L9gjaP9e/XYX5a8boqW41Q==
-MIME-Version: 1.0
-X-Received: by 10.28.46.206 with SMTP id u197mr13390519wmu.86.1449946694473;
- Sat, 12 Dec 2015 10:58:14 -0800 (PST)
-Received: by 10.194.108.103 with HTTP; Sat, 12 Dec 2015 10:58:14 -0800 (PST)
 Date: Sat, 12 Dec 2015 18:58:14 +0000
-Message-ID: <CAACinZSufQmaBHHFhLQ-qGp5FX7YoA+T+HyRw6=93V5UmRs_fw@mail.gmail.com>
 Subject: Recipients Test
 From: Foo Bar <foo@bar.com>
 To: test@test.com, Rod Naph <rod@pu-gh.com>
