@@ -47,17 +47,11 @@
   [multipart]
   (is-disposition multipart Part/INLINE))
 
-(defn- textual?
-  [multipart]
-  (contains?
-    #{"text/plain" "text/html"}
-    (content-type multipart)))
-
 (defn- attachment?
   [multipart]
   (or (is-disposition multipart Part/ATTACHMENT)
       (and (not (.getDisposition multipart))
-           (not (textual? multipart)))))
+           (not (nil? (.getFileName multipart))))))
 
 (defn- any-attachment?
   [multipart]
