@@ -1,6 +1,6 @@
 
 (ns cail.core
-  (:import (javax.mail Address Message Message$RecipientType Part)
+  (:import (javax.mail Address Flags Flags$Flag Message Message$RecipientType Part)
            (javax.mail.internet ContentType MimeMessage MimeMultipart)))
 
 (def ^{:private true
@@ -184,16 +184,29 @@
 ;; Public
 ;; ------
 
-(defmacro with-content-stream [& body]
+(defmacro with-content-stream
+  [& body]
   `(binding [*with-content-stream* true]
      (do ~@body)))
 
+(defmacro with-message
+  [msg & body]
+  `(let [is-seen# (.isSet ~msg Flags$Flag/SEEN)
+         result# (do ~@body)]
+     (.setFlags ~msg (Flags. Flags$Flag/SEEN) is-seen#)
+     result#))
+
 (defn ^{:doc "Parse a Message into a map, optionally specifying which fields to return"}
   message->map
-  ([^Message msg] (message->map msg default-fields))
-  ([^Message msg fields] (reduce #(merge %1 {%2 (field %2 msg)}) {} fields)))
+  ([^Message msg]
+   (message->map msg default-fields))
+  ([^Message msg fields]
+   (with-message msg
+     (reduce #(merge %1 {%2 (field %2 msg)}) {} fields))))
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
-  message->attachment [^Message msg index]
-  (nth (attachments msg) (dec index)))
+  message->attachment
+  [^Message msg index]
+  (with-message msg
+    (nth (attachments msg) (dec index))))
 
