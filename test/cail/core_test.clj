@@ -46,7 +46,9 @@
                     :charset "UTF-8"}))
 
        (fact "case of content type is lowercased"
-             (parse-message "uppercase") => (contains {:content-type "text/html"})))
+             (parse-message "uppercase") => (contains {:content-type "text/html"}))
+
+       (future-fact "peek mode is used for IMAP messages"))
 
 (facts "about parsing attachments"
        (fact "attachments can be parsed"
@@ -73,7 +75,9 @@
        (fact "non textual multipaarts without disposition are attachments"
              (let [{:keys [body attachments]} (parse-message "attachment_5")]
                (count attachments) => 1
-               body => "The Body")))
+               body => "The Body"))
+
+       (future-fact "peek mode is used for IMAP messages"))
 
 (facts "about parsing recipients"
        (parse-message "recipients") => (contains {:to (just [anything anything])

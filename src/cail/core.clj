@@ -181,6 +181,13 @@
   [_ ^Message msg]
   (count (attachments msg)))
 
+(defmacro with-peek
+  [msg & body]
+  `(do
+     (if (instance? IMAPMessage ~msg)
+       (.setPeek ~msg true))
+     ~@body))
+
 ;; Public
 ;; ------
 
@@ -189,24 +196,17 @@
   `(binding [*with-content-stream* true]
      (do ~@body)))
 
-(defmacro with-message
-  [msg & body]
-  `(let [is-seen# (.isSet ~msg Flags$Flag/SEEN)
-         result# (do ~@body)]
-     (.setFlags ~msg (Flags. Flags$Flag/SEEN) is-seen#)
-     result#))
-
 (defn ^{:doc "Parse a Message into a map, optionally specifying which fields to return"}
   message->map
   ([^Message msg]
    (message->map msg default-fields))
   ([^Message msg fields]
-   (with-message msg
+   (with-peek msg
      (reduce #(merge %1 {%2 (field %2 msg)}) {} fields))))
 
 (defn ^{:doc "Fetch stream for reading the content of the attachment at index"}
   message->attachment
   [^Message msg index]
-  (with-message msg
+  (with-peek msg
     (nth (attachments msg) (dec index))))
 
