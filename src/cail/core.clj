@@ -1,6 +1,7 @@
 
 (ns cail.core
-  (:import (javax.mail Address Flags Flags$Flag Message Message$RecipientType Part)
+  (:import (com.sun.mail.imap IMAPMessage)
+           (javax.mail Address Message Message$RecipientType Part)
            (javax.mail.internet ContentType MimeMessage MimeMultipart)))
 
 (def ^{:private true
