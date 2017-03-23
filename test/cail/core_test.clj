@@ -77,7 +77,17 @@
                (count attachments) => 1
                body => "The Body"))
 
-       (future-fact "peek mode is used for IMAP messages"))
+       (future-fact "peek mode is used for IMAP messages")
+
+       (fact "inline attachments with no content id treated as regular attachments"
+             (let [{:keys [attachments]} (parse-message "inline_attachments")]
+               (count attachments) => 3
+               (count (filter #(= :attachment (:type %)) attachments)) => 1))
+
+       (fact "inline attachments with no disposition only a content ID supported"
+             (let [{:keys [attachments]} (parse-message "inline_attachments")]
+               (count attachments) => 3
+               (count (filter #(= :inline (:type %)) attachments)) => 2)))
 
 (facts "about parsing recipients"
        (parse-message "recipients") => (contains {:to (just [anything anything])
@@ -120,15 +130,5 @@
              (let [attachment (with-content-stream
                                 (message->attachment
                                   (create-message "attachment_1") 1))]
-               (slurp (:content-stream attachment)) => "test attachment content\n"))
-
-       (fact "inline attachments with no content id treated as regular attachments"
-             (let [{:keys [attachments]} (parse-message "inline_attachments")]
-               (count attachments) => 3
-               (count (filter #(= :attachment (:type %)) attachments)) => 1))
-
-       (fact "inline attachments with no disposition only a content ID supported"
-             (let [{:keys [attachments]} (parse-message "inline_attachments")]
-               (count attachments) => 3
-               (count (filter #(= :inline (:type %)) attachments)) => 2)))
+               (slurp (:content-stream attachment)) => "test attachment content\n")))
 
