@@ -46,11 +46,15 @@
 
 (defn- inline?
   [multipart]
-  (is-disposition multipart Part/INLINE))
+  (or (and (is-disposition multipart Part/INLINE)
+           (.getContentID multipart))
+      (.getContentID multipart)))
 
 (defn- attachment?
   [multipart]
   (or (is-disposition multipart Part/ATTACHMENT)
+      (and (is-disposition multipart Part/INLINE)
+           (not (.getContentID multipart)))
       (and (not (.getDisposition multipart))
            (not (nil? (.getFileName multipart))))))
 

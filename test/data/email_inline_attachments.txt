@@ -1,0 +1,95 @@
+Delivered-To: foo@bar.com
+Received: by 10.202.64.84 with SMTP id n81csp16985oia;
+        Tue, 21 Mar 2017 15:36:15 -0700 (PDT)
+X-Received: by 10.202.171.15 with SMTP id u15mr18042457oie.201.1490135775085;
+        Tue, 21 Mar 2017 15:36:15 -0700 (PDT)
+Return-Path: <bizzle@example.com>
+Received: from co01.mbox.net (co01.mbox.net. [165.212.64.31])
+        by mx.google.com with ESMTPS id g7si9068316ote.154.2017.03.21.15.36.10
+        for <foo@bar.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 21 Mar 2017 15:36:15 -0700 (PDT)
+Received-SPF: neutral (google.com: 165.212.64.31 is neither permitted nor denied by best guess record for domain of bizzle@example.com) client-ip=165.212.64.31;
+Authentication-Results: mx.google.com;
+       spf=neutral (google.com: 165.212.64.31 is neither permitted nor denied by best guess record for domain of bizzle@example.com) smtp.mailfrom=bizzle@example.com
+Received: from co01.mbox.net (localhost [127.0.0.1])
+	by co01.mbox.net (Postfix) with ESMTP id 3vnnj55Gpmzs4bR
+	for <foo@bar.com>; Tue, 21 Mar 2017 22:36:09 +0000 (UTC)
+X-USANET-Received: from co01.mbox.net [127.0.0.1] by co01.mbox.net via mtad (C8.MAIN.4.10L) 
+	with ESMTP id 316Vcuwj89840M01; Tue, 21 Mar 2017 22:35:59 -0000
+X-USANET-Routed: 10 gwsout-externalarchive C:gwsarchive:625 fv9fwv5kp@incoming02.seccas.com
+X-USANET-Routed: 6 gwsout-disclaimer Q:watd
+X-USANET-Routed: 10 gwsout-externalarchive C:gwsarchive:625 example.com.gw.9987@incoming02.seccas.com
+X-USANET-Routed: 5 gwsout-gwsd Q:gwsd
+X-USANET-Routed: 3 gwsout-vs Q:bmvirus
+X-USANET-GWS2-Tenant: example.com
+X-USANET-GWS2-Tagid: FI03
+Received: from ca34.cms.usa.net [165.212.11.134] by co01.mbox.net via smtad (C8.MAIN.4.10L) 
+	with ESMTP id XID992Vcuwj85713X01; Tue, 21 Mar 2017 22:35:59 -0000
+X-USANET-Source: 165.212.11.134  OUT  bizzle@example.com ca34.cms.usa.net CLR
+X-USANET-MsgId: XID992Vcuwj85713X01
+Received: from web02.cms.usa.net [165.212.8.202] by ca34.cms.usa.net
+	(ESMTP/bizzle@example.com) via mtad (C8.MAIN.4.10M) 
+	with ESMTP id 046Vcuwj84608M34; Tue, 21 Mar 2017 22:35:59 -0000
+X-USANET-Auth: 165.212.8.202   AUTO bizzle@example.com web02.cms.usa.net CLR
+Received: from 45.51.196.45 [45.51.196.45] by web02.cms.usa.net 
+	(USANET web-mailer C8.MAIN.4.10I); Tue, 21 Mar 2017 22:35:59 -0000
+Date: Tue, 21 Mar 2017 15:35:59 -0700
+From: "Bizzle Bazzle" <bizzle@example.com>
+To: test@test.com
+Subject: Re: Semi Tractor Detail Shop
+X-Mailer: USANET web-mailer (C8.MAIN.4.10I)
+Mime-Version: 1.0
+Message-ID: <411VcuwI82448S02.1490135759@web02.cms.usa.net>
+References: <CAMM_sh8kVUWhuAdK7nadv8afwtR_DiS6PaFJJyUQVAH19SjWug@mail.gmail.com>
+In-Reply-To: <CAMM_sh8kVUWhuAdK7nadv8afwtR_DiS6PaFJJyUQVAH19SjWug@mail.gmail.com>
+Content-Type: multipart/mixed;
+	boundary="----NetAddressPart-00--=_uwI82448S027d18ae1a"
+Z-USANET-MsgId: XID046Vcuwj84608X34
+
+This is a multi-part message in MIME format.
+
+------NetAddressPart-00--=_uwI82448S027d18ae1a
+Content-Type: multipart/alternative;
+	boundary="----NetAddressPart-01--=_uwI82448S026f759a3a"
+
+------NetAddressPart-01--=_uwI82448S026f759a3a
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+TEXT PLAIN 1
+
+------NetAddressPart-01--=_uwI82448S026f759a3a
+Content-Type: multipart/related;
+	boundary="----NetAddressPart-02--=_uwI82448S0273aa2719"
+
+------NetAddressPart-02--=_uwI82448S0273aa2719
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+HTML PART 1
+
+------NetAddressPart-02--=_uwI82448S0273aa2719
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-ID: <embedcid2>
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+------NetAddressPart-02--=_uwI82448S0273aa2719
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-ID: <embedcid1>
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+
+------NetAddressPart-02--=_uwI82448S0273aa2719--
+
+------NetAddressPart-01--=_uwI82448S026f759a3a--
+
+------NetAddressPart-00--=_uwI82448S027d18ae1a
+Content-Type: application/pdf; name="The Polish Shop Application lo.pdf"
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; filename="The Polish Shop Application lo.pdf"
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+------NetAddressPart-00--=_uwI82448S027d18ae1a--
