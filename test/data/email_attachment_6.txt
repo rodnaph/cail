@@ -1,0 +1,29 @@
+Date: Fri, 11 Dec 2015 21:00:19 +0000
+Subject: With Attachment
+From: Rhodri Pugh <foo@bar.com>
+To: test@test.com
+Content-Type: multipart/mixed; boundary=001a1145bc907eda990526a59c80
+
+--001a1145bc907eda990526a59c80
+Content-Type: multipart/alternative; boundary=001a1145bc907eda940526a59c7e
+
+--001a1145bc907eda940526a59c7e
+Content-Type: text/plain; charset=UTF-8
+
+Attached
+
+--001a1145bc907eda940526a59c7e
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">Attached</div>
+
+--001a1145bc907eda940526a59c7e--
+--001a1145bc907eda990526a59c80
+Content-Type: text/plain; charset=US-ASCII; name="attachment_ct.txt"
+Content-Disposition: attachment; filename="attachment_cd.txt"
+Content-Transfer-Encoding: base64
+Content-ID: <00ac1b8a-86b9-7dfc-c9f4-9ee5c68bc09e@yahoo.com>
+X-Attachment-Id: f_ii25q63v0
+
+dGVzdCBhdHRhY2htZW50IGNvbnRlbnQK
+--001a1145bc907eda990526a59c80--

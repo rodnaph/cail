@@ -48,7 +48,8 @@
   [multipart]
   (or (and (is-disposition multipart Part/INLINE)
            (.getContentID multipart))
-      (.getContentID multipart)))
+      (and (.getContentID multipart)
+           (not (is-disposition multipart Part/ATTACHMENT)))))
 
 (defn- attachment?
   [multipart]

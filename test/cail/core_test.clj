@@ -130,5 +130,8 @@
              (let [attachment (with-content-stream
                                 (message->attachment
                                   (create-message "attachment_1") 1))]
-               (slurp (:content-stream attachment)) => "test attachment content\n")))
+               (slurp (:content-stream attachment)) => "test attachment content\n"))
 
+       (fact "attachments with content-id but attachment disposition treated as attachments"
+             (let [attachments (:attachments (parse-message "attachment_6"))]
+               (count (filter #(= :attachment (:type %)) attachments)) => 1)))
