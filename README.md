@@ -5,6 +5,8 @@ classes into Clojure data structures.  It doesn't do everything, but
 it should help with the 99% use case of "give me the emails and their
 attachments".
 
+[![Clojars Project](https://img.shields.io/clojars/v/rodnaph/cail.svg)](https://clojars.org/rodnaph/cail)
+
 ## Usage
 
 ```clojure
