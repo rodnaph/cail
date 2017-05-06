@@ -121,15 +121,15 @@
 
        (fact "they can be fetched individually"
              (message->attachment
-               (create-message "message_rfc822")
-               1) => (contains {:file-name "image001.jpg"
-                                :id 1
-                                :content-stream nil}))
+              (create-message "message_rfc822")
+              1) => (contains {:file-name "image001.jpg"
+                               :id 1
+                               :content-stream nil}))
 
        (fact "their content can be requested and read"
              (let [attachment (with-content-stream
                                 (message->attachment
-                                  (create-message "attachment_1") 1))]
+                                 (create-message "attachment_1") 1))]
                (slurp (:content-stream attachment)) => "test attachment content\n"))
 
        (fact "attachments with content-id but attachment disposition treated as attachments"

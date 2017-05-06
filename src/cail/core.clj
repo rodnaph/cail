@@ -24,22 +24,22 @@
 (defn- is-disposition
   [part disposition]
   (.equalsIgnoreCase
-    disposition
-    (.getDisposition part)))
+   disposition
+   (.getDisposition part)))
 
 (defn- content-type
   [part]
   (.toLowerCase
-    (.getBaseType
-      (ContentType.
-        (.getContentType part)))))
+   (.getBaseType
+    (ContentType.
+     (.getContentType part)))))
 
 (defn- charset
   [part]
   (.getParameter
-    (ContentType.
-      (.getContentType part))
-    "charset"))
+   (ContentType.
+    (.getContentType part))
+   "charset"))
 
 ;; Attachments
 ;; -----------
@@ -76,12 +76,12 @@
 (defn- multiparts
   [^MimeMessage msg f]
   (filter
-    (complement nil?)
-    (flatten
-      (let [content (.getContent msg)]
-          (if (instance? MimeMultipart content)
-            (multiparts* content f)
-            content)))))
+   (complement nil?)
+   (flatten
+    (let [content (.getContent msg)]
+      (if (instance? MimeMultipart content)
+        (multiparts* content f)
+        content)))))
 
 (defn- ->attachment
   [part id]
@@ -113,9 +113,9 @@
 (defn- body
   [^MimeMessage msg]
   (first
-    (sort
-      prefer-html
-      (multiparts msg (complement any-attachment?)))))
+   (sort
+    prefer-html
+    (multiparts msg (complement any-attachment?)))))
 
 ;; Fields
 ;; ------
