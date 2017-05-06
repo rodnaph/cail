@@ -107,10 +107,10 @@ of attachments.
 
 ## Testing
 
-Tests use Midje.
+Run all tests with `make`
 
 ```
-lein midje
+$> make
 ```
 
 ## Installation
