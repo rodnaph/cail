@@ -1,5 +1,4 @@
-
-(defproject rodnaph/cail "0.8.7"
+(defproject rodnaph/cail "0.8.8"
   :description "Sane javax.mail parser"
   :dependencies [[cljfmt "0.5.6"]
                  [org.clojure/clojure "1.8.0"]
