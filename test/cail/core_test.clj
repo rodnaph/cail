@@ -50,6 +50,10 @@
 
        (future-fact "peek mode is used for IMAP messages"))
 
+(facts "about plain text messages"
+       (fact "they can be parsed"
+             (parse-message "plain") => (contains {:body "Will it blend?\n"})))
+
 (facts "about parsing attachments"
        (fact "attachments can be parsed"
              (let [{:keys [attachments]} (parse-message "attachment_1")]

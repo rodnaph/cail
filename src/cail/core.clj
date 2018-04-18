@@ -112,10 +112,12 @@
 
 (defn- body
   [^MimeMessage msg]
-  (first
-   (sort
-    prefer-html
-    (multiparts msg (complement any-attachment?)))))
+  (if (instance? String (.getContent msg))
+    msg
+    (first
+     (sort
+      prefer-html
+      (multiparts msg (complement any-attachment?))))))
 
 ;; Fields
 ;; ------
