@@ -1,0 +1,17 @@
+Return-Path: <foo@bar.com>
+Received: from localhost (ec2-54-188-254-97.us-west-2.compute.amazonaws.com. [54.188.254.97])
+        by smtp.gmail.com with ESMTPSA id w63sm33942049pgb.80.2018.03.08.02.00.34
+        for <foo@bar.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 08 Mar 2011 02:00:34 -0800 (PST)
+Message-ID: <5aa109c2.4162630a.39d90.9895@mx.google.com>
+Date: Thu, 08 Mar 2013 10:00:33 +0000
+Subject: Test Email
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+From: Foo Bar <foo@bar.com>
+To: bar@foo.com
+
+Will it blend?
